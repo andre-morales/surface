@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ext\TinyXML2\tinyxml2.cpp" />
+    <ClCompile Include="src\Client\Chunk.cpp" />
+    <ClCompile Include="src\Client\ClientImpl.cpp" />
+    <ClCompile Include="src\Client\Client.cpp" />
+    <ClCompile Include="src\Client\MarchingCube.cpp" />
+    <ClCompile Include="src\Client\Session.cpp" />
+    <ClCompile Include="src\Glass\Layouts\SplitLayout.cpp" />
+    <ClCompile Include="src\Glow\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Camera.cpp" />
+    <ClCompile Include="src\Client\Main.cpp" />
+    <ClCompile Include="src\Graphics\Renderer.cpp" />
+    <ClCompile Include="src\Exception.cpp" />
+    <ClCompile Include="src\Geometry.cpp" />
+    <ClCompile Include="src\Glass\Elements\Text.cpp" />
+    <ClCompile Include="src\Glass\Events\Event.cpp" />
+    <ClCompile Include="src\Glass\Font.cpp" />
+    <ClCompile Include="src\Glass\Layouts\LayoutType.cpp" />
+    <ClCompile Include="src\Glass\Layouts\Layout.cpp" />
+    <ClCompile Include="src\Glass\Layouts\StackLayout.cpp" />
+    <ClCompile Include="src\Glass\Paints\ColorPaint.cpp" />
+    <ClCompile Include="src\Glass\Elements\ElementType.cpp" />
+    <ClCompile Include="src\Glass\Elements\Button.cpp" />
+    <ClCompile Include="src\Glass\GlassException.cpp" />
+    <ClCompile Include="src\Glass\LookAndFeel.cpp" />
+    <ClCompile Include="src\Glass\Paints\TexturePaint.cpp" />
+    <ClCompile Include="src\Glass\SheetElementAttribs.cpp" />
+    <ClCompile Include="src\Glass\SheetReader.cpp" />
+    <ClCompile Include="src\Glass\Paints\Paint.cpp" />
+    <ClCompile Include="src\Glow\Glow.cpp" />
+    <ClCompile Include="src\Glow\GLContext.cpp" />
+    <ClCompile Include="src\Glow\Image.cpp" />
+    <ClCompile Include="src\Glow\Texture.cpp" />
+    <ClCompile Include="src\Glow\Window.cpp" />
+    <ClCompile Include="src\Glass\Elements\Element.cpp" />
+    <ClCompile Include="src\Glass\GUI.cpp" />
+    <ClCompile Include="src\Loggy.cpp" />
+    <ClCompile Include="src\Math\Maths.cpp" />
+    <ClCompile Include="src\Math\noise.cpp" />
+    <ClCompile Include="src\Math\prng.cpp" />
+    <ClCompile Include="src\Physics\Collisions.cpp" />
+    <ClCompile Include="src\Physics\Plane.cpp" />
+    <ClCompile Include="src\TypeInfo.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Explorer\ext\ILib\Math\vec2.h" />
+    <ClInclude Include="..\Explorer\ext\ILib\Math\vec3.h" />
+    <ClInclude Include="..\Explorer\ext\ILib\Math\vec4.h" />
+    <ClInclude Include="ext\Lodepng\lodepng.h" />
+    <ClInclude Include="src\Client\Chunk.h" />
+    <ClInclude Include="src\Client\MarchingCube.h" />
+    <ClInclude Include="src\Client\Session.h" />
+    <ClInclude Include="src\Glass\Layouts\SplitLayout.h" />
+    <ClInclude Include="src\Glow\Shader.h" />
+    <ClInclude Include="src\Graphics\Camera.h" />
+    <ClInclude Include="src\Geometry.h" />
+    <ClInclude Include="src\Glass\Concepts.h" />
+    <ClInclude Include="src\Glass\Constants.h" />
+    <ClInclude Include="src\Glass\Elements\Text.h" />
+    <ClInclude Include="src\Glass\Events\Event.h" />
+    <ClInclude Include="src\Glass\Events\MouseButtonEvent.h" />
+    <ClInclude Include="src\Glass\Events\MouseMoveEvent.h" />
+    <ClInclude Include="src\Glass\Events\MouseOverEvent.h" />
+    <ClInclude Include="src\Glass\Font.h" />
+    <ClInclude Include="src\Glass\Layouts\LayoutType.h" />
+    <ClInclude Include="src\Glass\Layouts\Layout.h" />
+    <ClInclude Include="src\Glass\Layouts\StackLayout.h" />
+    <ClInclude Include="src\Glass\Paints\ColorPaint.h" />
+    <ClInclude Include="src\Glass\Elements\ElementType.h" />
+    <ClInclude Include="src\Glass\Elements\Button.h" />
+    <ClInclude Include="src\Glass\GlassException.h" />
+    <ClInclude Include="src\Glass\LookAndFeel.h" />
+    <ClInclude Include="src\Glass\Paints\TexturePaint.h" />
+    <ClInclude Include="src\Glass\Reflection.h" />
+    <ClInclude Include="src\Glass\SheetElementAttribs.h" />
+    <ClInclude Include="src\Glass\SheetReader.h" />
+    <ClInclude Include="src\Glass\Paints\Paint.h" />
+    <ClInclude Include="src\Client\ClientImpl.h" />
+    <ClInclude Include="src\Client\Client.h" />
+    <ClInclude Include="src\Graphics\Renderer.h" />
+    <ClInclude Include="src\Exception.h" />
+    <ClInclude Include="src\Glass\TextMetrics.h" />
+    <ClInclude Include="src\Glow\Glow.h" />
+    <ClInclude Include="src\Glow\GLContext.h" />
+    <ClInclude Include="src\Glow\Image.h" />
+    <ClInclude Include="src\Glow\Inputs.h" />
+    <ClInclude Include="src\Glow\Texture.h" />
+    <ClInclude Include="src\Glow\Window.h" />
+    <ClInclude Include="src\Glass\Elements\Element.h" />
+    <ClInclude Include="src\Glass\GUI.h" />
+    <ClInclude Include="src\Loggy.h" />
+    <ClInclude Include="src\Math\Maths.h" />
+    <ClInclude Include="src\Math\Matrices.h" />
+    <ClInclude Include="src\Math\NamedTypes.h" />
+    <ClInclude Include="src\Math\noise.h" />
+    <ClInclude Include="src\Math\prng.h" />
+    <ClInclude Include="src\Math\Vec2.h" />
+    <ClInclude Include="src\Math\Vec3.h" />
+    <ClInclude Include="src\Math\Vec4.h" />
+    <ClInclude Include="src\Math\Vecs.h" />
+    <ClInclude Include="src\Physics\Collisions.h" />
+    <ClInclude Include="src\Physics\Plane.h" />
+    <ClInclude Include="src\Physics\Ray.h" />
+    <ClInclude Include="src\Pointers.h" />
+    <ClInclude Include="src\Reflections.h" />
+    <ClInclude Include="src\Strings.h" />
+    <ClInclude Include="src\Times.h" />
+    <ClInclude Include="src\TypeInfo.h" />
+    <ClInclude Include="src\Types.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{27bb2935-05f1-41f0-969f-197dd4da47ec}</ProjectGuid>
+    <RootNamespace>Client</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>true</EnableASAN>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PublicIncludeDirectories>
+    </PublicIncludeDirectories>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3dll.lib;glew32.lib;opengl32.lib;lodepng.dll</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3dll.lib;glew32.lib;opengl32.lib;lodepng.dll</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;LODEPNG_NO_COMPILE_ENCODER;LODEPNG_NO_COMPILE_CPP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>src;ext</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4305</DisableSpecificWarnings>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3dll.lib;glew32.lib;opengl32.lib;lodepngd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>libs</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;LODEPNG_NO_COMPILE_CPP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>src;ext</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3dll.lib;glew32.lib;opengl32.lib;lodepng.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>libs</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

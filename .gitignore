@@ -1,0 +1,4 @@
+*.filters
+.vs/
+libs/stg/
+x64/
