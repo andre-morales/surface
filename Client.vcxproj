@@ -23,12 +23,15 @@
     <ClCompile Include="src\Client\Chunk.cpp" />
     <ClCompile Include="src\Client\ClientImpl.cpp" />
     <ClCompile Include="src\Client\Client.cpp" />
-    <ClCompile Include="src\Client\MarchingCube.cpp" />
+    <ClCompile Include="src\Client\Player.cpp" />
+    <ClCompile Include="src\Client\World.cpp" />
+    <ClCompile Include="src\Graphics\MeshGenerator.cpp" />
     <ClCompile Include="src\Client\Session.cpp" />
     <ClCompile Include="src\Glass\Layouts\SplitLayout.cpp" />
     <ClCompile Include="src\Glow\Shader.cpp" />
     <ClCompile Include="src\Graphics\Camera.cpp" />
     <ClCompile Include="src\Client\Main.cpp" />
+    <ClCompile Include="src\Graphics\MeshGeneratorTables.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
     <ClCompile Include="src\Exception.cpp" />
     <ClCompile Include="src\Geometry.cpp" />
@@ -59,7 +62,7 @@
     <ClCompile Include="src\Math\noise.cpp" />
     <ClCompile Include="src\Math\prng.cpp" />
     <ClCompile Include="src\Physics\Collisions.cpp" />
-    <ClCompile Include="src\Physics\Plane.cpp" />
+    <ClCompile Include="src\StaticVector.cpp" />
     <ClCompile Include="src\TypeInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -67,9 +70,13 @@
     <ClInclude Include="..\Explorer\ext\ILib\Math\vec3.h" />
     <ClInclude Include="..\Explorer\ext\ILib\Math\vec4.h" />
     <ClInclude Include="ext\Lodepng\lodepng.h" />
+    <ClInclude Include="src\Client\Block.h" />
     <ClInclude Include="src\Client\Chunk.h" />
-    <ClInclude Include="src\Client\MarchingCube.h" />
+    <ClInclude Include="src\Client\Player.h" />
+    <ClInclude Include="src\Client\World.h" />
+    <ClInclude Include="src\Graphics\MeshGenerator.h" />
     <ClInclude Include="src\Client\Session.h" />
+    <ClInclude Include="src\Debug.h" />
     <ClInclude Include="src\Glass\Layouts\SplitLayout.h" />
     <ClInclude Include="src\Glow\Shader.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
@@ -97,6 +104,7 @@
     <ClInclude Include="src\Glass\Paints\Paint.h" />
     <ClInclude Include="src\Client\ClientImpl.h" />
     <ClInclude Include="src\Client\Client.h" />
+    <ClInclude Include="src\Graphics\MeshGeneratorTables.h" />
     <ClInclude Include="src\Graphics\Renderer.h" />
     <ClInclude Include="src\Exception.h" />
     <ClInclude Include="src\Glass\TextMetrics.h" />
@@ -118,11 +126,13 @@
     <ClInclude Include="src\Math\Vec3.h" />
     <ClInclude Include="src\Math\Vec4.h" />
     <ClInclude Include="src\Math\Vecs.h" />
+    <ClInclude Include="src\Physics\AABB.h" />
     <ClInclude Include="src\Physics\Collisions.h" />
     <ClInclude Include="src\Physics\Plane.h" />
     <ClInclude Include="src\Physics\Ray.h" />
     <ClInclude Include="src\Pointers.h" />
     <ClInclude Include="src\Reflections.h" />
+    <ClInclude Include="src\StaticVector.h" />
     <ClInclude Include="src\Strings.h" />
     <ClInclude Include="src\Times.h" />
     <ClInclude Include="src\TypeInfo.h" />
@@ -226,6 +236,7 @@
       <AdditionalIncludeDirectories>src;ext</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4305</DisableSpecificWarnings>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <AdditionalOptions>/Zc:externConstexpr %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -245,6 +256,8 @@
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>src;ext</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4305</DisableSpecificWarnings>
+      <AdditionalOptions>/Zc:externConstexpr %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

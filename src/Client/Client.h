@@ -35,10 +35,10 @@ private:
 	unique<ClientImpl> impl_;
 	ClientImpl& impl;
 
-	unique<Renderer> renderer;
-	unique<Session> session;
 	unique<Glow::Window> window;
+	unique<Renderer> renderer;
 	unique<Glass::GUI> gui;
+	unique<Session> session;
 
 	float timeDelta = 0;
 	

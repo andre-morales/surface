@@ -10,7 +10,7 @@ static Loggy::Logger print{"Glow"};
 
 namespace Glow {
 	thread_local Window* currentContextWindow = nullptr;
-
+	
 	void init() {
 		print("Initializing GLFW...");
 		if (glfwInit() != GLFW_TRUE) {

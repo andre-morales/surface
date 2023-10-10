@@ -18,6 +18,7 @@ namespace Geometry {
 		extern const float uvs[];
 		extern const int16 uvs_s[];
 	}
+
 	namespace Cube {
 		extern const byte indices[];
 		extern const float verts_tris[];
@@ -63,7 +64,13 @@ namespace Geometry {
 			0, 0, 127,
 		};
 	}
+	
 	namespace Cube_inside {
+		extern const float verts[];
+		extern const float uvs[];
+	}
+
+	namespace Skybox {
 		extern const float verts[];
 		extern const float uvs[];
 	}

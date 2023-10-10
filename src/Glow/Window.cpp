@@ -5,6 +5,7 @@
 #include "Exception.h"
 #include "GL/glew.h"
 #include "GLFW/glfw3.h"
+#include "Debug.h"
 #include <assert.h>
 
 void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void* userParam);
@@ -14,7 +15,11 @@ using namespace std::string_literals;
 static Loggy::Logger print{"Window"};
 
 namespace Glow {
-	Window::Window() {}
+	Window::Window() {
+		width = 800;
+		height = 600;
+		aspect = 800 / 600.0f;
+	}
 
 	Window::~Window() {
 		if (!handle) return;
@@ -28,7 +33,7 @@ namespace Glow {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, false);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
-		GLFWwindow* win = glfwCreateWindow(640, 480, "Window", nullptr, nullptr);
+		GLFWwindow* win = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
 		
 		if (!win) {
 			throw Exception("Window creation failed.");
@@ -44,7 +49,7 @@ namespace Glow {
 
 		
 		glfwSetWindowUserPointer(win, this);
-		aspect = 640 / 480.0f;
+		aspect = width / (float) height;
 
 		setupEvents();
 		context = mkUnique<GLContext>(*this);
@@ -131,7 +136,7 @@ namespace Glow {
 		glfwSetKeyCallback(gWin, [](auto* nWin, int key, int scanCode, int action, int mods) {
 			Window& win = *getHandleWindow(nWin);
 			for (const auto& l : win.keyListeners) {
-				(*l.first)(key, scanCode, action, mods);
+				(*l.first)((InputKey)key, scanCode, (InputAction)action, mods);
 			}
 		});
 	}
@@ -292,4 +297,7 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum 
 	case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: notification"; break;
 	} std::cout << std::endl;
 	std::cout << std::endl;
+
+
+	Debug::pause();
 }

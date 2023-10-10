@@ -2,7 +2,7 @@
 	<button id="start-btn" bounds="[20, 20, 180, 60]" text="Start"></button>
 	
 </element>	
-<element id="pause-screen" bgcolor="[1, 0.7, 1.0, 0.5]" visible="false">
+<element id="pause-screen" bgcolor="[1, 0.7, 1.0, 0.05]" visible="false">
 	<button id="quit-btn" bounds="[20, 100, 180, 60]" text="Quit"></button>
 </element>
 <element id="hud" opaque="false">

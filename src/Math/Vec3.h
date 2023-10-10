@@ -13,20 +13,22 @@ namespace Math {
 		T vec[3];
 		struct { T x, y, z; };
 
-		Vector3() {}
+		constexpr Vector3() {}
 
-		Vector3(T v) : x(v), y(v), z(v){}
+		constexpr Vector3(T v) : x(v), y(v), z(v){}
 
-		Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
+		constexpr Vector3(T x, T y, T z) : x(x), y(y), z(z) {}
+
+		constexpr Vector3(const T* vec) : x(vec[0]), y(vec[1]), z(vec[2]){}
 
 		template <class K>
-		Vector3(const Vector3<K>& other) {
+		constexpr Vector3(const Vector3<K>& other) {
 			x = other.x;
 			y = other.y;
 			z = other.z;
 		}
 
-		T lengthSquared() const {
+		constexpr T lengthSquared() const {
 			return x * x + y * y + z * z;
 		}
 
@@ -59,45 +61,45 @@ namespace Math {
 			return *closestPoint;
 		}
 
-		Vector3<T>& operator+=(const Vector3<T>& v) {
+		constexpr Vector3<T>& operator+=(const Vector3<T>& v) {
 			x += v.x;
 			y += v.y;
 			z += v.z;
 			return *this;
 		}
 
-		Vector3<T>& operator-=(const Vector3<T>& v) {
+		constexpr Vector3<T>& operator-=(const Vector3<T>& v) {
 			x -= v.x;
 			y -= v.y;
 			z -= v.z;
 			return *this;
 		}
 
-		Vector3<T> operator+(T n) const {
+		constexpr Vector3<T> operator+(T n) const {
 			return { x + n, y + n, z + n };
 		}
 		
-		Vector3<T> operator+(const Vector3<T>& v) const {
+		constexpr Vector3<T> operator+(const Vector3<T>& v) const {
 			return { x + v.x, y + v.y, z + v.z };
 		}
 		
-		Vector3<T> operator-(const Vector3<T>& v) const {
+		constexpr Vector3<T> operator-(const Vector3<T>& v) const {
 			return { x - v.x, y - v.y, z - v.z };
 		}
 
-		Vector3<T> operator-() const {
+		constexpr Vector3<T> operator-() const {
 			return { -x, -y, -z };
 		}
 		
-		Vector3<T> operator*(T n) const {
+		constexpr Vector3<T> operator*(T n) const {
 			return { x * n, y * n, z * n };
 		}
 		
-		Vector3<T> operator/(T n) const {
+		constexpr Vector3<T> operator/(T n) const {
 			return { x / n, y / n, z / n };
 		}
 		
-		bool operator!=(const Vector3<T> other) const {
+		constexpr bool operator!=(const Vector3<T> other) const {
 			return other.x != x || other.y != y || other.z != z;
 		}
 

@@ -9,6 +9,9 @@
 #include "Glass\Reflection.h"
 #include "Math/Matrices.h"
 #include "Strings.h"
+#include <cmath>
+#include "Graphics/MeshGeneratorTables.h"
+#include "Physics\Collisions.h"
 
 static Loggy::Logger print{"Client"};
 
@@ -19,13 +22,33 @@ int main() {
 	print("Welcome!");
 	 
 	try {
+		/*AABB boxes[]{
+			{ {2, 4, -1}, {0.5, 0.5, 0.5} },
+			{ {-1.0f, 5.0f, 0.0f}, {0.5f, 0.5f, 0.5f}},
+			{ {0.0f, 0.0f, 0.0f }, {5, 7, 5      }},
+			{ {2.0f, 3.0f, -3.0f}, {3, 0.5f, 2    }},
 
-		Math::Mat4f mat;
-		mat.m03 = 3;
-		mat.m30 = 1;
-		mat.m21 = 4;
-		mat = mat.inverse();
-		print(mat.toString());
+			{ {2, 2, 2       }, {1.0f, 1.0f, 1.0f}},
+			{ {-2, -2, -2    }, {1.0f, 1.0f, 1.0f}},
+			{ {10, 10, 10    }, {11.0f, 11.0f, 11.0f}}
+		};
+		Vector3f triangle[]{
+			{-1, 5, 0},
+			{2, 2, -3},
+			{5, 5, 0}
+		};
+		bool v = Collisions::IsIntersecting(boxes[0], triangle);
+		
+		print(Collisions::IsIntersecting(boxes[0], triangle));
+		print(Collisions::IsIntersecting(boxes[1], triangle));
+		print(Collisions::IsIntersecting(boxes[2], triangle));
+		print(Collisions::IsIntersecting(boxes[3], triangle));
+		print(Collisions::IsIntersecting(boxes[4], triangle));
+		print(Collisions::IsIntersecting(boxes[5], triangle));
+		print(Collisions::IsIntersecting(boxes[6], triangle));*/
+		//auto& table = Tables::closestEdgeOfCases;
+		//;
+		//print(table[0][0]);
 
 		Client client{};
 		client.init();

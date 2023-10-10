@@ -1,30 +1,38 @@
 #pragma once
+#include "Math/Vec3.h"
+#include "Pointers.h"
 #include <vector>
 #include <optional>
-#include "Math/Vec3.h"
+#include <array>
 
 class Chunk;
+class World;
+class Player;
 
 class Session {
 public:
-	typedef int BlockData[16][16][16];
-
-	std::vector<Chunk*> chunks;
-
 	Session();
 	~Session();
 
 	void start();
+	void setupEvents();
 	void update();
 
-	bool cameraRaycast(Vector3f* hit, Vector3f** triangle);
-	std::optional<Vector3i> getLookingBlock();
-	std::optional<Vector3i> getLookingBlockForPlace();
-	std::optional<Vector3f> getLookingWorldPos();
+	void doChunkGeneration();
+	void doMovement();
+	void doDebugText();
+
+	World& getWorld() const;
+	Player& getPlayer() const;
 
 private:
-	float lastMX = -1, lastMY = -1;
+	unique<World> world;
+	unique<Player> player;
 	bool menuVisible = false;
+
+	Vector3f lookingWorldPos;
+	std::array<Vector3f, 3> lookingWorldTriangle;
+
 	void* winKeyListener = nullptr;
 	void* winMouseMoveListener = nullptr;
 	void* winMouseButtonListener = nullptr;

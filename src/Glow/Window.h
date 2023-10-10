@@ -12,8 +12,8 @@ namespace Glow {
 		typedef std::function<void()> CloseReqListener;
 		typedef std::function<void(int width, int height)> ResizeListener;
 		typedef std::function<void(MouseButton btn, InputAction action, int modifiers)> MouseListener;
-		typedef std::function<void(float x, float y)> MouseMoveListener;
-		typedef std::function<void(int key, int scanCode, int action, int mods)> KeyListener;
+		typedef std::function<void(float mx, float my)> MouseMoveListener;
+		typedef std::function<void(InputKey key, int scanCode, InputAction action, int mods)> KeyListener;
 
 		Window();
 		~Window();
@@ -49,8 +49,8 @@ namespace Glow {
 	private:
 		void* handle = nullptr;
 		unique<GLContext> context;
-		int width, height;
-		float aspect;
+		int width = -1, height = -1;
+		float aspect = -1;
 
 		bool pressedButtons[8]{};
 

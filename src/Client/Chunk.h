@@ -2,22 +2,33 @@
 #include "Types.h"
 #include "Math/Vec2.h"
 #include "Math/Vec3.h"
+#include "Block.h"
 #include <vector>
+
+class Session;
 
 class Chunk {
 public:
-	typedef uint8_t BlockData[16][16][16];
+	typedef Block BlockData[16][16][16];
 
+	const Session& session;
 	int cx = 0, cz = 0;
-	BlockData* blocks;
+	BlockData* blocks = nullptr;
+	bool batched = false;
+
 	std::vector<Vector3f> vertices;
 	std::vector<Vector2f> uvs;
 	std::vector<Vector3f> normals;
+	std::vector<Vector3f> colors;
 
-	Chunk();
+	Chunk(const Session&);
 
 	void allocate();
 	void generate();
 	void batch();
+
+private:
+	Chunk(const Chunk&) = delete;
+	Chunk(Chunk&&) = delete;
 };
 

@@ -52,6 +52,12 @@ void ClientImpl::mkUIResources() {
 		tex.setWrapping(Texture::Wrapping::REPEAT, Texture::Wrapping::REPEAT);
 		ctx.addTexture("grass", std::move(tex));
 	}
+	{
+		Texture tex{ "res/skybox.png" };
+		tex.setFiltering(Texture::Filtering::NEAR, Texture::Filtering::NEAR);
+		tex.setWrapping(Texture::Wrapping::REPEAT, Texture::Wrapping::REPEAT);
+		ctx.addTexture("sky", std::move(tex));
+	}
 
 	// Pixel font
 	Texture pixelTexture{ "res/font.png" };
