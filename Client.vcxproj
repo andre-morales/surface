@@ -66,9 +66,6 @@
     <ClCompile Include="src\TypeInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Explorer\ext\ILib\Math\vec2.h" />
-    <ClInclude Include="..\Explorer\ext\ILib\Math\vec3.h" />
-    <ClInclude Include="..\Explorer\ext\ILib\Math\vec4.h" />
     <ClInclude Include="ext\Lodepng\lodepng.h" />
     <ClInclude Include="src\Client\Block.h" />
     <ClInclude Include="src\Client\Chunk.h" />

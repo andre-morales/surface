@@ -108,10 +108,6 @@ void dbgRenderCubeAt(GLContext& gl, Vector3f position, float scale = 1, bool wir
 	gl.enableTexture2d();
 }
 
-void doTest() {
-	
-}
-
 void Renderer::renderSession() {
 	Client& client = Client::get();
 	Glow::Window& window = *client.window;
@@ -193,17 +189,18 @@ void Renderer::renderSession() {
 
 	{
 		gl.enableVertsArray();
-		
-		if (camera.isLookingAtTerrain) {
-			auto direction = camera.getLookingDirection();
+		auto camDirection = camera.getLookingDirection();
+
+		if (false && camera.isLookingAtTerrain) {
+			
 			auto& lookTriangle = camera.lookingTerrainTriangle;
 
 			glColor3f(0.5, 1, 0);
 
 			Vector3f tv[]{
-				lookTriangle[0] - direction * 0.01,
-				lookTriangle[1] - direction * 0.01,
-				lookTriangle[2] - direction * 0.01
+				lookTriangle[0] - camDirection * 0.01,
+				lookTriangle[1] - camDirection * 0.01,
+				lookTriangle[2] - camDirection * 0.01
 			};
 
 			glLineWidth(3);
@@ -213,7 +210,7 @@ void Renderer::renderSession() {
 			auto selectedBlock_ = camera.getLookingBlockPos();
 			if (selectedBlock_) {
 				Vector3f selectedBlock = *selectedBlock_;
-				selectedBlock += direction * -0.1;
+				selectedBlock += camDirection * -0.1;
 				glColor3f(1.0, 0.5, 0.3);
 				dbgRenderCubeAt(gl, selectedBlock, 1, true);
 			}
@@ -221,70 +218,34 @@ void Renderer::renderSession() {
 			auto placeBlock_ = camera.getLookingEmptyBlockPos();
 			if (placeBlock_) {
 				Vector3f placeBlock = *placeBlock_;
-				placeBlock += direction * -0.1;
+				placeBlock += camDirection * -0.1;
 				glColor3f(0.2, 1.0, 0.6);
 				dbgRenderCubeAt(gl, placeBlock, 1, true);
 			}
 
 			glColor3f(0.3, 0.3, 1);
 			dbgRenderCubeAt(gl, camera.lookingTerrainPos, 0.05, false);
-			
 		}
 
 		{
 			gl.disableTexture2d();
-			auto direction = camera.getLookingDirection();
-			AABB box;
-			box.center = Vector3f{ player.position.x, player.position.y + 0.8f, player.position.z };
-			box.extents = Vector3f{ .3, .8, .3 };
-		
+			
 			glColor4f(1, 0, 0, 1);
 			glLineWidth(3);
 
-			auto boxv = box.vertices();
+			for (auto tris : player.collidingTriangles) {
+				tris[0] -= camDirection * 0.01;
+				tris[1] -= camDirection * 0.01;
+				tris[2] -= camDirection * 0.01;
 
-			Vector3f boxvv[]{
-				boxv[0], boxv[1],
-				boxv[0], boxv[2],
-				boxv[0], boxv[4],
-				boxv[1], boxv[3],
-				boxv[1], boxv[5],
-				boxv[2], boxv[3],
-				boxv[2], boxv[6],
-				boxv[3], boxv[7],
-				boxv[4], boxv[5],
-				boxv[4], boxv[6],
-				boxv[5], boxv[7],
-				boxv[6], boxv[7],
-			};
-
-			glVertexPointer(3, GL_FLOAT, 0, boxvv);
-			glDrawArrays(GL_LINES, 0, 24);
-
-
-			auto& verts = chunks[0]->vertices;
-			for (int i = 0; i < verts.size(); i += 3) {
-				Vector3f triangle[]{
-					verts[i + 0],
-					verts[i + 1],
-					verts[i + 2]
-				};
-
-				if (Collisions::IsIntersecting(box, triangle)) {
-					Vector3f ff[]{
-						triangle[0] - direction * 0.01,
-						triangle[1] - direction * 0.01,
-						triangle[2] - direction * 0.01
-					};
-
-					glLineWidth(3);
-					glVertexPointer(3, GL_FLOAT, 0, ff);
-					glDrawArrays(GL_LINE_LOOP, 0, 3);
-					//break;
-				}
-
+				glLineWidth(3);
+				glVertexPointer(3, GL_FLOAT, 0, tris.data());
+				glDrawArrays(GL_LINE_LOOP, 0, 3);
 			}
-
+			
+			auto boxvv = player.getColliderBoxLines();
+			glVertexPointer(3, GL_FLOAT, 0, boxvv.data());
+			glDrawArrays(GL_LINES, 0, 24);
 		}
 		gl.enableTexture2d();
 		gl.enableDepthTesting();

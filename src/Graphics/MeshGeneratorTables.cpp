@@ -4,7 +4,7 @@
 
 namespace Tables {
 
-	consteval std::array<Vector3f, 12> genMiddleEdges() {
+	static consteval std::array<Vector3f, 12> genMiddleEdges() {
 		std::array<Vector3f, 12> arr;
 		for (int i = 0; i < 12; i++) {
 			arr[i] = Vector3f(edges[i][0] + edges[i][1]) / 2;
@@ -12,10 +12,8 @@ namespace Tables {
 		return arr;
 	}
 
-	constexpr std::array<Vector3f, 12> verticesOfEdges = genMiddleEdges();
-	
-	consteval std::array<std::array<int, 12>, 256> genClosestEdgeOfCases() {
-		std::array<std::array<int, 12>, 256> arr;
+	static consteval std::array<std::array<int, 12>, 256> genClosestEdgeOfCases() {
+		std::array<std::array<int, 12>, 256> arr{};
 
 		for (int caseI = 0; caseI < 256; caseI++) {
 			for (int edgeI = 0; edgeI < 12; edgeI++) {
@@ -50,7 +48,9 @@ namespace Tables {
 		return arr;
 	}
 
+	constexpr std::array<Vector3f, 12> verticesOfEdges = genMiddleEdges();
+
 	constexpr std::array<std::array<int, 12>, 256> closestEdgeOfCases = genClosestEdgeOfCases();
 
-	size_t what = sizeof(closestEdgeOfCases);
+	//size_t what = sizeof(closestEdgeOfCases);
 }

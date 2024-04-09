@@ -5,7 +5,6 @@
 class AABB {
 public:
 	Vector3f center, extents;
-	//Vector3f min, max;
 
 	AABB() {
 		extents = { 0.5, 0.5, 0.5 };
@@ -20,7 +19,7 @@ public:
 		return { center - extents, center + extents };
 	}
 
-	std::array<Vector3f, 8> vertices() const {
+	std::array<Vector3f, 8> getVertices() const {
 		auto [min, max] = getMinMax();
 
 		return {

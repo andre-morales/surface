@@ -28,7 +28,9 @@ Session::Session() {}
 
 Session::~Session() {
 	print("Destroying...");
-	Glow::Window& win = *Client::get().getWindow();
+
+	// Remove all of our listeners from Window to prevent zombie listeners
+	auto& win = *Client::get().getWindow();
 	win.removeKeyListener(winKeyListener);
 	winKeyListener = nullptr;
 
@@ -37,13 +39,14 @@ Session::~Session() {
 
 	win.removeMouseListener(winMouseButtonListener);
 	winMouseButtonListener = nullptr;
+	
 	print("Destroyed.");
 }
 
 void Session::start() {
 	print("Starting...");
 	
-	player = mkUnique<Player>();
+	player = mkUnique<Player>(*this);
 	world = mkUnique<World>();
 
 	setupEvents();
@@ -166,37 +169,40 @@ void Session::doMovement() {
 	Player& player = getPlayer();
 	Window& win = *client.getWindow();
 	Camera& cam = client.getRenderer()->camera;
-	auto& pos = player.position;
 
 	float timeDelta = client.getTimeDelta();
 	float movementSpeed = 5;
 
+	Vector3f mVel{};
+
 	if (win.getKey(InputKey::W)) {
-		pos.x += timeDelta * movementSpeed * std::sin(cam.rotation.y * RADS);
-		pos.z -= timeDelta * movementSpeed * std::cos(cam.rotation.y * RADS);
+		mVel.x += movementSpeed * std::sin(cam.rotation.y * RADS);
+		mVel.z -= movementSpeed * std::cos(cam.rotation.y * RADS);
 	} else if (win.getKey(InputKey::S)) {
-		pos.x -= timeDelta * movementSpeed * std::sin(cam.rotation.y * RADS);
-		pos.z += timeDelta * movementSpeed * std::cos(cam.rotation.y * RADS);
+		mVel.x -= movementSpeed * std::sin(cam.rotation.y * RADS);
+		mVel.z += movementSpeed * std::cos(cam.rotation.y * RADS);
 	}
 
 	if (win.getKey(InputKey::A)) {
-		pos.x -= timeDelta * movementSpeed * std::cos(cam.rotation.y * RADS);
-		pos.z -= timeDelta * movementSpeed * std::sin(cam.rotation.y * RADS);
-	}
-	if (win.getKey(InputKey::D)) {
-		pos.x += timeDelta * movementSpeed * std::cos(cam.rotation.y * RADS);
-		pos.z += timeDelta * movementSpeed * std::sin(cam.rotation.y * RADS);
+		mVel.x -= movementSpeed * std::cos(cam.rotation.y * RADS);
+		mVel.z -= movementSpeed * std::sin(cam.rotation.y * RADS);
+	} else if (win.getKey(InputKey::D)) {
+		mVel.x += movementSpeed * std::cos(cam.rotation.y * RADS);
+		mVel.z += movementSpeed * std::sin(cam.rotation.y * RADS);
 	}
 
 	if (win.getKey(InputKey::SPACE)) {
-		pos.y += timeDelta * movementSpeed;
-	}
-	if (win.getKey(InputKey::L_SHIFT)) {
-		pos.y -= timeDelta * movementSpeed;
+		mVel.y += movementSpeed;
+	} else if (win.getKey(InputKey::L_SHIFT)) {
+		mVel.y -= movementSpeed;
 	}
 
+	player.velocity = player.velocity * 0.985f + mVel * 0.025f;
+
+	player.doPhysics(timeDelta);
+
 	cam.position = player.position;
-	cam.position.y += 1.6;
+	cam.position.y += 1.55;
 	cam.rotation = player.rotation;
 }
 

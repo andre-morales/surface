@@ -64,8 +64,6 @@ void Client::run() {
 	// Trigger resize once to layout things
 	onResize(win.getWidth(), win.getHeight());
 
-	win.addMouseMoveListener([this](double mx, double my) {});
-	
 	// Main loop
 	auto lastUpdate = Time::now();
 	auto lastSecondStamp = lastUpdate;
@@ -137,12 +135,13 @@ void Client::createGUI() {
 		gui.getRoot()->add(std::move(comp));
 	}
 
-	gui.find("#start-btn")->onMouseButton([this, &gui](const MouseButtonEvent& ev) {
+	gui.find("#start-btn")->onMouseButton([&](auto ev) {
 		if (ev.action != InputAction::PRESS) return;
 	
 		createSession();
 	});
-	gui.find("#quit-btn")->onMouseButton([this, &gui](const MouseButtonEvent& ev) {
+
+	gui.find("#quit-btn")->onMouseButton([&](auto ev) {
 		if (ev.action != InputAction::PRESS) return;
 
 		gui.find("#main-screen")->setVisible(true);
@@ -153,8 +152,10 @@ void Client::createGUI() {
 
 void Client::createSession() {
 	session = mkUnique<Session>();
+
 	gui->find("#main-screen")->setVisible(false);
 	window->setMouseVisible(false);
+	
 	session->start();
 }
 

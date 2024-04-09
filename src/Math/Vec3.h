@@ -13,7 +13,7 @@ namespace Math {
 		T vec[3];
 		struct { T x, y, z; };
 
-		constexpr Vector3() {}
+		constexpr Vector3() : x(0), y(0), z(0) { }
 
 		constexpr Vector3(T v) : x(v), y(v), z(v){}
 

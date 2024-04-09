@@ -79,14 +79,14 @@ Vector3f normalFromTriangle(const Vector3f triangle[]) {
 	return Vector3f::cross(b - a, c - a).normalize();
 }
 
-void Project(std::span<const Vector3f> points, Vector3f axis, double* min, double* max);
+void Project(std::span<const Vector3f> points, Vector3f axis, float* min, float* max);
 
-bool Collisions::IsIntersecting(AABB& box, const Vector3f triangle[]) {
+bool Collisions::isIntersecting(const AABB& box, const Vector3f triangle[]) {
 	auto [boxMinV, boxMaxV] = box.getMinMax();
 	
 	std::span<const Vector3f> triangleSpan{ triangle, 3 };
-    double triangleMin, triangleMax;
-    double boxMin, boxMax;
+	float triangleMin, triangleMax;
+	float boxMin, boxMax;
 
     // Test the box normals (x-, y- and z-axes)
 	Vector3f boxNormals[]{
@@ -110,7 +110,7 @@ bool Collisions::IsIntersecting(AABB& box, const Vector3f triangle[]) {
 	double triangleOffset = Vector3f::dot(triangleNormal, triangle[0]);
     
     //Project(box.Vertices, triangle.Normal, out boxMin, out boxMax);
-	Project(box.vertices(), triangleNormal, &boxMin, &boxMax);
+	Project(box.getVertices(), triangleNormal, &boxMin, &boxMax);
     if (boxMax < triangleOffset || boxMin > triangleOffset)
         return false; // No intersection possible.
 
@@ -125,7 +125,7 @@ bool Collisions::IsIntersecting(AABB& box, const Vector3f triangle[]) {
         for (int j = 0; j < 3; j++) {
             // The box normals are the same as it's edge tangents
             Vector3f axis = Vector3f::cross(triangleEdges[i], boxNormals[j]);
-            Project(box.vertices(), axis, &boxMin, &boxMax);
+            Project(box.getVertices(), axis, &boxMin, &boxMax);
             Project(triangleSpan, axis, &triangleMin, &triangleMax);
             if (boxMax < triangleMin || boxMin > triangleMax)
                 return false; // No intersection possible
@@ -135,13 +135,13 @@ bool Collisions::IsIntersecting(AABB& box, const Vector3f triangle[]) {
     return true;
 }
 
-void Project(std::span<const Vector3f> points, Vector3f axis, double* min, double* max)
+void Project(std::span<const Vector3f> points, Vector3f axis, float* min, float* max)
 {
-    *min = std::numeric_limits<double>::max();
-    *max = std::numeric_limits<double>::lowest();
+    *min = std::numeric_limits<float>::max();
+    *max = std::numeric_limits<float>::lowest();
 
     for (auto& p : points)  {
-        double val = Vector3f::dot(axis, p);
+		float val = Vector3f::dot(axis, p);
         if (val < *min) *min = val;
         if (val > *max) *max = val;
     }
