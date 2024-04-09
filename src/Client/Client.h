@@ -10,6 +10,7 @@ namespace Glass {
 class Renderer;
 class Session;
 class ClientImpl;
+class Config;
 
 class Client {
 public:
@@ -24,6 +25,7 @@ public:
 	Session* getSession() const;
 	Renderer* getRenderer() const;
 	Glass::GUI* getGUI() const;
+	Config& getConfig() const;
 	float getTimeDelta() const;
 	int getFPS() const;
 
@@ -36,6 +38,7 @@ private:
 	unique<ClientImpl> impl_;
 	ClientImpl& impl;
 
+	unique<Config> config;
 	unique<Glow::Window> window;
 	unique<Renderer> renderer;
 	unique<Glass::GUI> gui;

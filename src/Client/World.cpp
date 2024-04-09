@@ -1,5 +1,57 @@
 #include "World.h"
 #include "Chunk.h"
+#include "Client.h"
+#include "Session.h"
+#include "Player.h"
+#include "Config.h"
+
+void World::doLoadChunks() {
+	Client& client = Client::get();
+	Session& session = *client.getSession();
+	int rd = client.getConfig().renderDistance;
+	auto& position = session.getPlayer().position;
+
+	std::vector<Chunk*> unloads;
+	for (Chunk* ch : chunks) {
+		float dist = std::hypot(ch->cx * 16 - position.x, ch->cz * 16 - position.z);
+		if (dist / 16 > rd) {
+			unloads.emplace_back(ch);
+		}
+	}
+
+	for (Chunk* ch : unloads) {
+		removeChunk(ch);
+	}
+
+	for (int x = -2; x <= 2; x++) {
+		for (int z = -2; z <= 2; z++) {
+			int cx = x + (int)(position.x / 16);
+			int cz = z + (int)(position.z / 16);
+			float dist = std::hypot(cx * 16 - position.x, cz * 16 - position.z);
+			if (dist / 16 > rd) continue;
+
+			Chunk* c = getChunk(cx, cz);
+			if (c) {
+				if (!c->batched) c->batch();
+				//c->batch();
+			}
+			else {
+				auto chunk = new Chunk(session);
+				chunk->cx = cx;
+				chunk->cz = cz;
+				chunk->allocate();
+				chunk->generate();
+				chunks.emplace_back(chunk);
+			}
+
+		}
+	}
+}
+
+void World::removeChunk(Chunk* ch) {
+	delete ch;
+	chunks.erase(std::remove(chunks.begin(), chunks.end(), ch), chunks.end());
+}
 
 Chunk* World::getChunk(int cx, int cz) const {
 	for (Chunk* c : chunks) {

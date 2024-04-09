@@ -29,6 +29,7 @@ private:
 	unique<World> world;
 	unique<Player> player;
 	bool menuVisible = false;
+	int renderDistance = 4;
 
 	Vector3f lookingWorldPos;
 	std::array<Vector3f, 3> lookingWorldTriangle;

@@ -154,6 +154,7 @@ void Renderer::renderSession() {
 	glColor4f(1, 1, 1, 1);
 	gl.getTexture("grass")->bind();
 
+	// Render all chunk batches
 	for (auto& chunk : chunks) {
 		glPushMatrix();
 		glTranslatef(chunk->cx * 16, 0, chunk->cz * 16);
@@ -186,13 +187,63 @@ void Renderer::renderSession() {
 		
 		glPopMatrix();
 	}
+	
+	{
+		gl.enableVertsArray();
+		auto camDirection = camera.getLookingDirection();
+
+		if (camera.isLookingAtTerrain) {
+			// What block would be broken
+			auto selectedBlock_ = camera.getLookingBlockPos();
+			if (selectedBlock_) {
+				Vector3f selectedBlock = *selectedBlock_;
+				selectedBlock += camDirection * -0.1;
+				glColor3f(1.0, 0.5, 0.3);
+				dbgRenderCubeAt(gl, selectedBlock, 1, true);
+			}
+			
+			// Where the next block would be placed
+			auto placeBlock_ = camera.getLookingEmptyBlockPos();
+			if (placeBlock_) {
+				Vector3f placeBlock = *placeBlock_;
+				placeBlock += camDirection * -0.1;
+				glColor3f(0.2, 1.0, 0.6);
+				dbgRenderCubeAt(gl, placeBlock, 1, true);
+			}
+
+			glColor3f(0.3, 0.3, 1);
+			dbgRenderCubeAt(gl, camera.lookingTerrainPos, 0.05, false);
+		}
+
+		gl.enableTexture2d();
+		gl.enableDepthTesting();
+		gl.disableVertsArray();
+	}
+
+	if (debugOutlines) {
+		drawDebugOutlines();
+	}
+
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_ALPHA_TEST);
+	gl.disableDepthTesting();
+	gl.disableFaceCulling();
+}
+
+void Renderer::drawDebugOutlines() {
+	Client& client = Client::get();
+	Glow::Window& window = *client.window;
+	Glow::GLContext& gl = *window.getContext();
+	Session& session = *client.getSession();
+	Player& player = session.getPlayer();
 
 	{
 		gl.enableVertsArray();
 		auto camDirection = camera.getLookingDirection();
 
-		if (false && camera.isLookingAtTerrain) {
-			
+		if (camera.isLookingAtTerrain) {
+
+			// Draw currently looked at triangle
 			auto& lookTriangle = camera.lookingTerrainTriangle;
 
 			glColor3f(0.5, 1, 0);
@@ -207,29 +258,14 @@ void Renderer::renderSession() {
 			glVertexPointer(3, GL_FLOAT, 0, tv);
 			glDrawArrays(GL_LINE_LOOP, 0, 3);
 
-			auto selectedBlock_ = camera.getLookingBlockPos();
-			if (selectedBlock_) {
-				Vector3f selectedBlock = *selectedBlock_;
-				selectedBlock += camDirection * -0.1;
-				glColor3f(1.0, 0.5, 0.3);
-				dbgRenderCubeAt(gl, selectedBlock, 1, true);
-			}
-
-			auto placeBlock_ = camera.getLookingEmptyBlockPos();
-			if (placeBlock_) {
-				Vector3f placeBlock = *placeBlock_;
-				placeBlock += camDirection * -0.1;
-				glColor3f(0.2, 1.0, 0.6);
-				dbgRenderCubeAt(gl, placeBlock, 1, true);
-			}
-
 			glColor3f(0.3, 0.3, 1);
 			dbgRenderCubeAt(gl, camera.lookingTerrainPos, 0.05, false);
 		}
 
+		// Render last triangles collided
 		{
 			gl.disableTexture2d();
-			
+
 			glColor4f(1, 0, 0, 1);
 			glLineWidth(3);
 
@@ -242,7 +278,7 @@ void Renderer::renderSession() {
 				glVertexPointer(3, GL_FLOAT, 0, tris.data());
 				glDrawArrays(GL_LINE_LOOP, 0, 3);
 			}
-			
+
 			auto boxvv = player.getColliderBoxLines();
 			glVertexPointer(3, GL_FLOAT, 0, boxvv.data());
 			glDrawArrays(GL_LINES, 0, 24);
@@ -251,9 +287,4 @@ void Renderer::renderSession() {
 		gl.enableDepthTesting();
 		gl.disableVertsArray();
 	}
-
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_ALPHA_TEST);
-	gl.disableDepthTesting();
-	gl.disableFaceCulling();
 }

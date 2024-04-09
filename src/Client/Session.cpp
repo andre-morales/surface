@@ -73,6 +73,10 @@ void Session::setupEvents() {
 			render._recompileShader();
 		}
 
+		if (key == InputKey::F4) {
+			render.debugOutlines = !render.debugOutlines;
+		}
+
 		if (key == InputKey::ESC) {
 			menuVisible = !menuVisible;
 			gui.getElementById("pause-screen")->setVisible(menuVisible);
@@ -139,29 +143,7 @@ void Session::update() {
 }
 
 void Session::doChunkGeneration() {
-	Client& client = Client::get();
-	Camera& cam = client.getRenderer()->camera;
-
-	for (int x = 0; x <= 3; x++) {
-		for (int z = 0; z <= 3; z++) {
-			int cx = x + (int)(cam.position.x / 16);
-			int cz = z + (int)(cam.position.z / 16);
-
-			Chunk* c = world->getChunk(cx, cz);
-			if (c) {
-				if (!c->batched) c->batch();
-				//c->batch();
-			} else {
-				auto chunk = new Chunk(*this);
-				chunk->cx = cx;
-				chunk->cz = cz;
-				chunk->allocate();
-				chunk->generate();
-				world->chunks.emplace_back(chunk);
-			}
-
-		}
-	}
+	world->doLoadChunks();
 }
 
 void Session::doMovement() {

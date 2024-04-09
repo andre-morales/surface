@@ -1,9 +1,14 @@
 #pragma once
 #include "Graphics/Camera.h"
 
+namespace Glow {
+	class GLContext;
+}
+
 class Renderer {
 public:
 	Camera camera;
+	bool debugOutlines = false;
 
 	Renderer();
 
@@ -13,5 +18,8 @@ public:
 	void renderSession();
 
 	void _recompileShader();
+
+private:
+	void drawDebugOutlines();
 };
 

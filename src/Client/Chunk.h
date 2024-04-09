@@ -26,7 +26,6 @@ public:
 	void allocate();
 	void generate();
 	void batch();
-
 private:
 	Chunk(const Chunk&) = delete;
 	Chunk(Chunk&&) = delete;

@@ -68,10 +68,6 @@ bool Collisions::isPointInTriangle(const Vector3f& point, const Vector3f triangl
 	return true;
 }
 
-
-
-
-
 Vector3f normalFromTriangle(const Vector3f triangle[]) {
 	const auto& a = triangle[0];
 	const auto& b = triangle[1];
@@ -81,6 +77,7 @@ Vector3f normalFromTriangle(const Vector3f triangle[]) {
 
 void Project(std::span<const Vector3f> points, Vector3f axis, float* min, float* max);
 
+// AABB Intersection implementation by Markus Jarderot -- Temporary solution
 bool Collisions::isIntersecting(const AABB& box, const Vector3f triangle[]) {
 	auto [boxMinV, boxMaxV] = box.getMinMax();
 	

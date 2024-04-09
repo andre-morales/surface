@@ -97,11 +97,6 @@ std::optional<Vector3i> Camera::getLookingBlockPos() {
 	Session& session = *client.getSession();
 	World& world = session.getWorld();
 
-	auto Ceil = [](float x) {
-		if (x >= 0) return std::ceil(x);
-		return -std::floor(-x);
-	};
-
 	auto pos = getLookingWorldPos();
 	if (!pos) return {};
 

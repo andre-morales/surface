@@ -1,6 +1,5 @@
-<element id="main-screen" bgcolor="[0.6, 0.7, 1.0, 1]" layout="split" splits="[0.5]">
+<element id="main-screen" bgcolor="[0.6, 0.7, 1.0, 1]" layout="split" splits="[0.5, 0.7]">
 	<button id="start-btn" bounds="[20, 80, 180, 60]" text="Start"></button>
-	
 </element>	
 <element id="pause-screen" bgcolor="[1, 0.7, 1.0, 0.05]" visible="false">
 	<button id="quit-btn" bounds="[20, 100, 180, 60]" text="Quit"></button>

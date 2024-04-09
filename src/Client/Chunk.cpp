@@ -1,4 +1,7 @@
 #include "Chunk.h"
+#include "Player.h"
+#include "Client.h"
+#include "Config.h"
 #include "Math/Maths.h"
 #include "Math/noise.h"
 #include "Graphics/MeshGenerator.h"
@@ -12,16 +15,6 @@ void Chunk::allocate() {
 }
 
 void Chunk::generate() {
-
-	(*blocks)[4][4][4] = 2;
-	(*blocks)[5][4][4] = 2;
-	(*blocks)[8][4][4] = 2;
-
-	(*blocks)[8][2][4] = 2;
-	(*blocks)[5][4][4] = 3;
-	(*blocks)[4][4][6] = 3;
-	(*blocks)[4][4][7] = 3;
-
 	Noise terrainGen{ 0 };
 
 	for (int x = 0; x < 16; x++) {
@@ -45,15 +38,11 @@ void Chunk::generate() {
 		}
 	}
 
-	/*for (int x = 1; x < 15; x++) {
-		for (int z = 1; z < 15; z++) {
-			for (int y = 1; y < 15; y++) {
-			
-
-				(*blocks)[x][y][z] = { 1 };
-			}
+	for (int x = 0; x < 16; x++) {
+		for (int z = 0; z < 16; z++) {
+			(*blocks)[x][1][z] = { 1 };
 		}
-	}*/
+	}
 }
 
 void Chunk::batch() {

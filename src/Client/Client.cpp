@@ -1,6 +1,7 @@
 #include "Client.h"
 #include "ClientImpl.h"
 #include "Session.h"
+#include "Config.h"
 #include "Graphics/Renderer.h"
 #include "Glow/Glow.h"
 #include "Glow/Window.h"
@@ -31,7 +32,7 @@
 using namespace Glow;
 using namespace Glass;
 
-static std::string VERSION_STRING = "0.0.1_1";
+static std::string VERSION_STRING = "0.0.1_2 b8";
 static std::string BUILD_STRING = VERSION_STRING + " Early Dev 1";
 static std::string BUILD_TEXT = "Surface v" + BUILD_STRING;
 static Loggy::Logger print{"Client"};
@@ -40,6 +41,7 @@ static Client* client = nullptr;
 Client::Client() : 
 	impl_(new ClientImpl(*this)),
 	impl(*impl_),
+	config(new Config()),
 	renderer(new Renderer()) {
 	client = this;
 }
@@ -190,6 +192,10 @@ Renderer* Client::getRenderer() const {
 
 Glass::GUI* Client::getGUI() const {
 	return gui.get();
+}
+
+Config& Client::getConfig() const {
+	return *config;
 }
 
 float Client::getTimeDelta() const {
