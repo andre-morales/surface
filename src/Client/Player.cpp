@@ -12,10 +12,12 @@
 static Loggy::Logger print{ "Player" };
 
 Player::Player(Session& s) : session(s) {
+	this->position = {13.51f, 3.07f, -0.22f};
 	collider = mkUnique<AABB>();
 	collider->extents = Vector3f{ .3, .825, .3 };
 }
 
+// TODO: Make physics work
 void Player::doPhysics(float timeDelta) {
 	auto& chunks = session.getWorld().chunks;
 	auto& camera = Client::get().getRenderer()->camera;
@@ -45,7 +47,7 @@ void Player::doPhysics(float timeDelta) {
 		if (Collisions::isIntersecting(*collider, triangle.data())) {
 			collidingTriangles.push_back(triangle);
 
-			collisions++;
+			//collisions++;
 
 			// Get infinite plane from triangle
 			auto trianglePlane = triangle;
@@ -54,20 +56,27 @@ void Player::doPhysics(float timeDelta) {
 
 			// Get triangle normal
 			auto normal = plane.direction;
-
+			
+			// Sliding direction for this triangle, cancels all the speed in the direction opposing this triangle
 			auto dir = Vector3f::cross(Vector3f::cross(normal, velocity), normal);
-			//velocity = dir;
-			sum += dir;
+
+			velocity = dir;
+			nextPosition = position + velocity * timeDelta;
+
+			// Reposition the ABB in the center of the player box
+			collider->center = Vector3f{ nextPosition.x, nextPosition.y + 0.825f, nextPosition.z };
+			//print("D: ", dir.toString());
+			//sum += dir;
 
 		}
 	}
 
 	// Only advance to the future position if no collision happened
-	if (!collisions) {
+	//if (!collisions) {
 		position = nextPosition;
-		return;
-	}
-	velocity = sum / collisions;
+	//	return;
+	//}
+	//velocity = sum / collisions;
 	//position += sum * timeDelta;
 	/*// Get infinite plane from triangle
 	auto trianglePlane = collidingTriangles[0];
@@ -81,7 +90,7 @@ void Player::doPhysics(float timeDelta) {
 
 	//velocity = {};
 	//position += velocity * timeDelta;
-	print("S: ", sum.x, ", ", sum.y, ",", sum.z);
+	//print("S: ", sum.x, ", ", sum.y, ",", sum.z);
 	//print("V: ", velocity.x, ", ", velocity.y, ",", velocity.z);
 	//print("D: ", dir.x, ", ", dir.y, ",", dir.z);
 

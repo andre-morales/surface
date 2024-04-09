@@ -211,12 +211,12 @@ void Session::doDebugText() {
 	Camera& cam = client.getRenderer()->camera;
 	Glass::GUI& gui = *client.getGUI();
 
-	std::string debugText = std::format(R"(
-MyGame v0.0.1:
+	std::string debugText = std::format(R"({}
 FPS: {}
 X: {:.2f} Y: {:.2f} Z: {:.2f}
 RX: {:.2f}, RY: {:.2f})",
-client.fps,
+Client::getBuildText(),
+client.getFPS(),
 cam.position.x, cam.position.y, cam.position.z,
 cam.rotation.x, cam.rotation.y);
 

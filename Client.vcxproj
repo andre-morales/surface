@@ -196,8 +196,8 @@
     <IntDir>build\debug\obj</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>build\rel\dist\</OutDir>
-    <IntDir>build\rel\obj\</IntDir>
+    <OutDir>build\rel\dist</OutDir>
+    <IntDir>build\rel\obj</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

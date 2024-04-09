@@ -25,9 +25,10 @@ public:
 	Renderer* getRenderer() const;
 	Glass::GUI* getGUI() const;
 	float getTimeDelta() const;
+	int getFPS() const;
 
 	static Client& get();
-	int fps = 0;
+	static const char* getBuildText();
 private:
 	friend class ClientImpl;
 	friend class Renderer;
@@ -40,6 +41,7 @@ private:
 	unique<Glass::GUI> gui;
 	unique<Session> session;
 
+	int fps = 0;
 	float timeDelta = 0;
 	
 	bool running = false;

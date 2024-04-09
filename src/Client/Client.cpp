@@ -19,16 +19,21 @@
 #include "Glass/LookAndFeel.h"
 #include "Glass/Font.h"
 #include "Glass/GUI.h"
+#include "Glass/Elements/Text.h"
 #include "Exception.h"
 #include "Pointers.h"
 #include "Loggy.h"
 #include "Times.h"
+#include <string>
 #include <algorithm>
 #include <cassert>
 
 using namespace Glow;
 using namespace Glass;
 
+static std::string VERSION_STRING = "0.0.1_1";
+static std::string BUILD_STRING = VERSION_STRING + " Early Dev 1";
+static std::string BUILD_TEXT = "Surface v" + BUILD_STRING;
 static Loggy::Logger print{"Client"};
 static Client* client = nullptr;
 
@@ -58,10 +63,10 @@ void Client::run() {
 
 	print("Running.");
 	
-	// Initialize rendering system
+	// Initialize rendering system and make window visible
 	renderer->init();
 
-	// Trigger resize once to layout things
+	// Trigger resize once to layout UI things
 	onResize(win.getWidth(), win.getHeight());
 
 	// Main loop
@@ -134,6 +139,9 @@ void Client::createGUI() {
 	for (auto& comp : comps) {
 		gui.getRoot()->add(std::move(comp));
 	}
+	
+	// Show version
+	((Text*)gui.getElementById("debug-text"))->text = Client::getBuildText();
 
 	gui.find("#start-btn")->onMouseButton([&](auto ev) {
 		if (ev.action != InputAction::PRESS) return;
@@ -186,4 +194,12 @@ Glass::GUI* Client::getGUI() const {
 
 float Client::getTimeDelta() const {
 	return timeDelta;
+}
+
+int Client::getFPS() const {
+	return fps;
+}
+
+const char* Client::getBuildText() {
+	return BUILD_TEXT.c_str();
 }
