@@ -94,6 +94,14 @@ namespace Glow {
 		glfwSwapBuffers(gwin);
 	}
 
+	void Window::setVSync(bool vsync) {
+		if (vsync) {
+			glfwSwapInterval(1);
+		} else {
+			glfwSwapInterval(0);
+		}
+	}
+
 	void Window::setupEvents() {
 		auto gWin = (GLFWwindow*) handle;
 

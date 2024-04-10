@@ -21,7 +21,8 @@ namespace Glow {
 		void build();
 		void swapBuffers();
 		void dispose();
-		
+		void setVSync(bool);
+
 		GLContext* getContext() const;
 		int getWidth() const;
 		int getHeight() const;
