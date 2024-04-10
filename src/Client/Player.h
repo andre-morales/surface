@@ -4,7 +4,6 @@
 #include "Pointers.h"
 #include <vector>
 #include <array>
-#include "Physics/Capsule.h"
 
 class Capsule;
 class AABB;
@@ -18,14 +17,15 @@ public:
 	Vector3f velocity;
 
 	Player(Session&);
+	~Player();
 
 	void doPhysics(float timeDelta);
-	std::array<Vector3f, 24> getColliderBoxLines();
 
+	std::array<Vector3f, 24> getBoxColliderLines();
 	std::vector<std::array<Vector3f, 3>> collidingTriangles;
 
 private:
-	unique<AABB> collider;
-	unique<Capsule> capsule;
+	unique<AABB> boxCollider;
+	unique<Capsule> capsuleCollider;
 };
 

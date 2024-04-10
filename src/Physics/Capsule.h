@@ -5,6 +5,6 @@ class Capsule {
 public:
 	Vector3f base;
 	Vector3f tip;
-	float radius;
+	float radius = 0;
 };
 

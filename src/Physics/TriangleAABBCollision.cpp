@@ -1,6 +1,7 @@
 #include "Collisions.h"
 #include <limits>
 #include <span>
+#include "AABB.h"
 #include "Loggy.h"
 
 // ---- AABB Intersection implementation by Markus Jarderot -- Test 1 ----
@@ -13,7 +14,7 @@ Vector3f normalFromTriangle(const Vector3f triangle[]) {
 
 void Project(std::span<const Vector3f> points, Vector3f axis, float* min, float* max);
 
-bool Collisions::isIntersecting(const AABB& box, const Vector3f triangle[]) {
+bool Collisions::doAABBTriangle(const AABB& box, const Vector3f triangle[]) {
     auto [boxMinV, boxMaxV] = box.getMinMax();
 
     std::span<const Vector3f> triangleSpan{ triangle, 3 };

@@ -1,8 +1,10 @@
 #include "Collisions.h"
+#include "Capsule.h"
+#include "Plane.h"
+#include "Ray.h"
+#include "Loggy.h"
 #include <limits>
 #include <span>
-#include "Capsule.h"
-#include "Loggy.h"
 
 static Loggy::Logger print{ "Collisions" };
 

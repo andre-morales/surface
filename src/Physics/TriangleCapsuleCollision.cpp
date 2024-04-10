@@ -2,6 +2,7 @@
 #include <limits>
 #include <span>
 #include "Capsule.h"
+#include "Sphere.h"
 #include "Loggy.h"
 
 static Loggy::Logger print{ "Collisions" };
@@ -36,7 +37,7 @@ float3 ClosestPointOnLineSegment(float3 A, float3 B, float3 Point) {
 	return A + AB * saturate(t); // saturate(t) can be written as: min((max(t, 0), 1)
 }
 
-std::optional<Collision> Collisions::isIntersecting(const Capsule& caps, const Vector3f triangle[]) {
+std::optional<Collision> Collisions::doCapsuleTriangle(const Capsule& caps, const Vector3f triangle[]) {
 	float3 tip = caps.tip;
 	float3 base = caps.base;
 	float radius = caps.radius;
@@ -108,5 +109,5 @@ std::optional<Collision> Collisions::isIntersecting(const Capsule& caps, const V
 
 	float3 center = ClosestPointOnLineSegment(A, B, reference_point);
 
-	return Collisions::triangleIntersectsSphere(triangle, center, radius);
+	return Collisions::doSphereTriangle({ center, radius }, triangle);
 }

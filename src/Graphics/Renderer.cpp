@@ -175,7 +175,7 @@ void Renderer::renderSession() {
 			glTexCoordPointer(2, GL_FLOAT, 0, &uvs[0]);
 			glNormalPointer(GL_FLOAT, 0, &normals[0]);
 			glColorPointer(3, GL_FLOAT, 0, &colors[0]);
-			glDrawArrays(GL_TRIANGLES, 0, verts.size());
+			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)verts.size());
 
 			gl.disableNormalsArray();
 			gl.disableUVsArray();
@@ -280,7 +280,7 @@ void Renderer::drawDebugOutlines() {
 			}
 
 			// Collider box
-			auto boxvv = player.getColliderBoxLines();
+			auto boxvv = player.getBoxColliderLines();
 			glVertexPointer(3, GL_FLOAT, 0, boxvv.data());
 			glDrawArrays(GL_LINES, 0, 24);
 		}

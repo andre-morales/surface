@@ -136,6 +136,7 @@
     <ClInclude Include="src\Physics\Collisions.h" />
     <ClInclude Include="src\Physics\Plane.h" />
     <ClInclude Include="src\Physics\Ray.h" />
+    <ClInclude Include="src\Physics\Sphere.h" />
     <ClInclude Include="src\Pointers.h" />
     <ClInclude Include="src\Reflections.h" />
     <ClInclude Include="src\StaticVector.h" />
@@ -205,8 +206,8 @@
     <IntDir>build\debug\obj</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>build\rel\dist</OutDir>
-    <IntDir>build\rel\obj</IntDir>
+    <OutDir>build\rel\dist\</OutDir>
+    <IntDir>build\rel\obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -14,27 +14,27 @@ static Loggy::Logger print{ "Player" };
 
 Player::Player(Session& s) : session(s) {
 	this->position = {10, 5, 10};
-	collider = mkUnique<AABB>();
-	capsule = mkUnique<Capsule>();
-	capsule->radius = .4f;
+	boxCollider = mkUnique<AABB>();
+	boxCollider->extents = Vector3f{ .5, .825, .5 };
 
-	collider->extents = Vector3f{ .5, .825, .5 };
+	capsuleCollider = mkUnique<Capsule>();
+	capsuleCollider->radius = .4f;
 }
+
+Player::~Player() {}
 
 void Player::doPhysics(float timeDelta) {
 	auto& chunks = session.getWorld().chunks;
 	collidingTriangles.clear();
 
-	// Calculate the next position the player would be in and create an AABB that represents
-	// the collider of the future position
-	auto trueNextPosition = position + velocity * timeDelta;
-	auto trueVelocity = velocity;
+	auto originalNextPosition = position + velocity * timeDelta;
+	auto originalVelocity = velocity;
 
-	auto nextPosition = position + velocity * timeDelta;
-	collider->center = Vector3f{ nextPosition.x, nextPosition.y + 0.825f, nextPosition.z };
-	
-	capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
-	capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z };
+	// Calculate the next position the player would be in and recenter the colliders in the future position
+	auto futurePos = position + velocity * timeDelta;
+	boxCollider->center = Vector3f{ futurePos.x, futurePos.y + 0.825f, futurePos.z };
+	capsuleCollider->base = Vector3f{ futurePos.x, futurePos.y, futurePos.z };
+	capsuleCollider->tip = Vector3f{ futurePos.x, futurePos.y + 1.65f, futurePos.z };
 
 	// For every triangle in the chunk mesh, check if there is a collision between the triangle, and the future AABB
 	for (auto& ch : chunks) {
@@ -48,37 +48,16 @@ void Player::doPhysics(float timeDelta) {
 			};
 			
 			// Quickly discard any triangle that is too far away to matter
-			if ((triangle[0] - nextPosition).length() > 4) continue;
+			if ((triangle[0] - futurePos).lengthSquared() > 16) continue;
 
-			// If there was no collision, keep on looking
-			auto coll = Collisions::isIntersecting(*capsule, triangle.data());
+			// Perform collision detection
+			auto coll = Collisions::doCapsuleTriangle(*capsuleCollider, triangle.data());
 			if (!coll) continue;
-			
-			//if (!Collisions::isIntersecting(*collider, triangle.data())) continue;
 
 			// There was a collision, save the triangle on a list
 			collidingTriangles.push_back(triangle);
 
-			/* --- Clip using triangle normal
-			// Get infinite plane from triangle
-			auto trianglePlane = triangle;
-			Plane plane;
-			plane.fromTriangle(trianglePlane[0], trianglePlane[1], trianglePlane[2]);
-
-			// Get triangle normal
-			auto normal = plane.direction;
-			
-			// Sliding direction for this triangle, with all the opposing speed removed
-			auto newDir = Vector3f::cross(Vector3f::cross(normal, velocity), normal);
-			velocity = newDir;
-
-			// Recalculate the future position and recenter AABB for the next collision checks
-			nextPosition = position + velocity * timeDelta;
-			capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
-			capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z };
-			*/
-
-			// Clip using collision information as implemented by wicked engine
+			// ---- Clip using collision information as implemented by wicked engine, way smoother
 			auto normal = coll->normal;
 			auto penetration = coll->penetration;
 
@@ -88,22 +67,25 @@ void Player::doPhysics(float timeDelta) {
 			auto desired = nVelocity - undesired;
 			velocity = desired * velocityM;
 
-			nextPosition += normal * (penetration + 0.00001f);
-			capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
-			capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z }; 
+			// Readjust future position and recenter capsule collider
+			futurePos += normal * (penetration + 0.00001f);
+			capsuleCollider->base = Vector3f{ futurePos.x, futurePos.y, futurePos.z };
+			capsuleCollider->tip = Vector3f{ futurePos.x, futurePos.y + 1.65f, futurePos.z }; 
 		}
 	}
 
-	if (!session.physics) {
-		velocity = trueVelocity;
-		position = trueNextPosition;
+	position = futurePos;
+
+	// If we are ignoring physics, do not alter velocity or position according to collisions
+	if (!session.noClipping) {
+		velocity = originalVelocity;
+		position = originalNextPosition;
 		return;
 	}
-	position = nextPosition;
 }
 
-std::array<Vector3f, 24> Player::getColliderBoxLines() {
-	auto boxv = collider->getVertices();
+std::array<Vector3f, 24> Player::getBoxColliderLines() {
+	auto boxv = boxCollider->getVertices();
 
 	return {
 		boxv[0], boxv[1],

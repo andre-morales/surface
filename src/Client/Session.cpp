@@ -78,7 +78,7 @@ void Session::setupEvents() {
 		}
 
 		if (key == InputKey::F5) {
-			physics = !physics;
+			noClipping = !noClipping;
 		}
 
 		if (key == InputKey::ESC) {
