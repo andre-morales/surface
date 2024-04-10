@@ -77,6 +77,10 @@ void Session::setupEvents() {
 			render.debugOutlines = !render.debugOutlines;
 		}
 
+		if (key == InputKey::F5) {
+			physics = !physics;
+		}
+
 		if (key == InputKey::ESC) {
 			menuVisible = !menuVisible;
 			gui.getElementById("pause-screen")->setVisible(menuVisible);
@@ -184,7 +188,8 @@ void Session::doMovement() {
 	player.doPhysics(timeDelta);
 
 	cam.position = player.position;
-	cam.position.y += 1.55;
+	cam.position.y += 1.65;
+	cam.position.y += 0;
 	cam.rotation = player.rotation;
 }
 

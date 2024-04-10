@@ -4,7 +4,9 @@
 #include "Pointers.h"
 #include <vector>
 #include <array>
+#include "Physics/Capsule.h"
 
+class Capsule;
 class AABB;
 class Session;
 
@@ -24,5 +26,6 @@ public:
 
 private:
 	unique<AABB> collider;
+	unique<Capsule> capsule;
 };
 

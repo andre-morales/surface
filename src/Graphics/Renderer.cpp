@@ -279,6 +279,7 @@ void Renderer::drawDebugOutlines() {
 				glDrawArrays(GL_LINE_LOOP, 0, 3);
 			}
 
+			// Collider box
 			auto boxvv = player.getColliderBoxLines();
 			glVertexPointer(3, GL_FLOAT, 0, boxvv.data());
 			glDrawArrays(GL_LINES, 0, 24);

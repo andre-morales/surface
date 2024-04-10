@@ -4,6 +4,7 @@
 #include "Chunk.h"
 #include "Physics/Collisions.h"
 #include "Physics/AABB.h"
+#include "Physics/Capsule.h"
 #include "Client.h"
 #include "Graphics/Camera.h"
 #include "Graphics/Renderer.h"
@@ -14,7 +15,10 @@ static Loggy::Logger print{ "Player" };
 Player::Player(Session& s) : session(s) {
 	this->position = {10, 5, 10};
 	collider = mkUnique<AABB>();
-	collider->extents = Vector3f{ .3, .825, .3 };
+	capsule = mkUnique<Capsule>();
+	capsule->radius = .4f;
+
+	collider->extents = Vector3f{ .5, .825, .5 };
 }
 
 void Player::doPhysics(float timeDelta) {
@@ -23,9 +27,15 @@ void Player::doPhysics(float timeDelta) {
 
 	// Calculate the next position the player would be in and create an AABB that represents
 	// the collider of the future position
+	auto trueNextPosition = position + velocity * timeDelta;
+	auto trueVelocity = velocity;
+
 	auto nextPosition = position + velocity * timeDelta;
 	collider->center = Vector3f{ nextPosition.x, nextPosition.y + 0.825f, nextPosition.z };
 	
+	capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
+	capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z };
+
 	// For every triangle in the chunk mesh, check if there is a collision between the triangle, and the future AABB
 	for (auto& ch : chunks) {
 		auto& verts = ch->vertices;
@@ -36,9 +46,13 @@ void Player::doPhysics(float timeDelta) {
 				verts[i + 1] + origin,
 				verts[i + 2] + origin
 			};
-		
+			
+			// Quickly discard any triangle that is too far away to matter
+			if ((triangle[0] - nextPosition).length() > 4) continue;
+
 			// If there was no collision, keep on looking
-			if (!Collisions::isIntersecting(*collider, triangle.data())) continue;
+			if (!Collisions::isIntersecting(*capsule, triangle.data())) continue;
+			//if (!Collisions::isIntersecting(*collider, triangle.data())) continue;
 
 			// There was a collision, save the triangle on a list
 			collidingTriangles.push_back(triangle);
@@ -53,17 +67,20 @@ void Player::doPhysics(float timeDelta) {
 			
 			// Sliding direction for this triangle, with all the opposing speed removed
 			auto newDir = Vector3f::cross(Vector3f::cross(normal, velocity), normal);
-			if (std::abs(newDir.x) < .05) newDir.x = 0;
-			if (std::abs(newDir.y) < .05) newDir.y = 0;
-			if (std::abs(newDir.z) < .05) newDir.z = 0;
 			velocity = newDir;
 
 			// Recalculate the future position and recenter AABB for the next collision checks
 			nextPosition = position + velocity * timeDelta;
-			collider->center = Vector3f{ nextPosition.x, nextPosition.y + 0.825f, nextPosition.z };
+			capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
+			capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z };
 		}
 	}
 
+	if (!session.physics) {
+		velocity = trueVelocity;
+		position = trueNextPosition;
+		return;
+	}
 	position = nextPosition;
 }
 

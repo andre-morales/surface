@@ -32,7 +32,7 @@
 using namespace Glow;
 using namespace Glass;
 
-static std::string VERSION_STRING = "0.0.1_2 b8";
+static std::string VERSION_STRING = "0.0.1_2 b14";
 static std::string BUILD_STRING = VERSION_STRING + " Early Dev 1";
 static std::string BUILD_TEXT = "Surface v" + BUILD_STRING;
 static Loggy::Logger print{"Client"};

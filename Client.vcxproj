@@ -62,7 +62,11 @@
     <ClCompile Include="src\Math\Maths.cpp" />
     <ClCompile Include="src\Math\noise.cpp" />
     <ClCompile Include="src\Math\prng.cpp" />
+    <ClCompile Include="src\Physics\Capsule.cpp" />
     <ClCompile Include="src\Physics\Collisions.cpp" />
+    <ClCompile Include="src\Physics\TriangleAABBCollision.cpp" />
+    <ClCompile Include="src\Physics\TriangleCapsuleCollision.cpp" />
+    <ClCompile Include="src\Physics\TriangleSphereCollision.cpp" />
     <ClCompile Include="src\StaticVector.cpp" />
     <ClCompile Include="src\TypeInfo.cpp" />
   </ItemGroup>
@@ -126,6 +130,7 @@
     <ClInclude Include="src\Math\Vec4.h" />
     <ClInclude Include="src\Math\Vecs.h" />
     <ClInclude Include="src\Physics\AABB.h" />
+    <ClInclude Include="src\Physics\Capsule.h" />
     <ClInclude Include="src\Physics\Collisions.h" />
     <ClInclude Include="src\Physics\Plane.h" />
     <ClInclude Include="src\Physics\Ray.h" />
