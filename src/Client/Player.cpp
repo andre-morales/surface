@@ -51,12 +51,15 @@ void Player::doPhysics(float timeDelta) {
 			if ((triangle[0] - nextPosition).length() > 4) continue;
 
 			// If there was no collision, keep on looking
-			if (!Collisions::isIntersecting(*capsule, triangle.data())) continue;
+			auto coll = Collisions::isIntersecting(*capsule, triangle.data());
+			if (!coll) continue;
+			
 			//if (!Collisions::isIntersecting(*collider, triangle.data())) continue;
 
 			// There was a collision, save the triangle on a list
 			collidingTriangles.push_back(triangle);
 
+			/* --- Clip using triangle normal
 			// Get infinite plane from triangle
 			auto trianglePlane = triangle;
 			Plane plane;
@@ -73,6 +76,21 @@ void Player::doPhysics(float timeDelta) {
 			nextPosition = position + velocity * timeDelta;
 			capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
 			capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z };
+			*/
+
+			// Clip using collision information as implemented by wicked engine
+			auto normal = coll->normal;
+			auto penetration = coll->penetration;
+
+			auto nVelocity = velocity.normalize();
+			auto velocityM = velocity.length();
+			auto undesired = normal * Vector3f::dot(nVelocity, normal);
+			auto desired = nVelocity - undesired;
+			velocity = desired * velocityM;
+
+			nextPosition += normal * (penetration + 0.00001f);
+			capsule->base = Vector3f{ nextPosition.x, nextPosition.y, nextPosition.z };
+			capsule->tip = Vector3f{ nextPosition.x, nextPosition.y + 1.65f, nextPosition.z }; 
 		}
 	}
 

@@ -24,8 +24,7 @@ static float3 ClosestPointOnLineSegment(float3 A, float3 B, float3 Point) {
 	return A + AB * saturate(t); // saturate(t) can be written as: min((max(t, 0), 1)
 }
 
-
-bool Collisions::triangleIntersectsSphere(const Vector3f triangle[], Vector3f center, float radius) {
+std::optional<Collision> Collisions::triangleIntersectsSphere(const Vector3f triangle[], Vector3f center, float radius) {
 	float3 p0 = triangle[0];
 	float3 p1 = triangle[1];
 	float3 p2 = triangle[2];
@@ -35,7 +34,7 @@ bool Collisions::triangleIntersectsSphere(const Vector3f triangle[], Vector3f ce
 	//if (!mesh.is_double_sided() && dist > 0)
 	//	continue; // can pass through back side of triangle (optional)
 	if (dist < -radius || dist > radius)
-		return false;
+		return {};
 
 	float3 point0 = center - N * dist; // projected sphere center on triangle plane
 
@@ -106,7 +105,9 @@ bool Collisions::triangleIntersectsSphere(const Vector3f triangle[], Vector3f ce
 		float len = intersection_vec.length();  // vector3 length calculation: 
 		float3 penetration_normal = intersection_vec / len;  // normalize
 		float penetration_depth = radius - len; // radius = sphere radius
-		return true; // intersection success
+
+		Collision c{ penetration_depth, penetration_normal };
+		return c; // intersection success
 	}
-	return false;
+	return {};
 }

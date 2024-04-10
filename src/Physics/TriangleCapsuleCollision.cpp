@@ -36,7 +36,7 @@ float3 ClosestPointOnLineSegment(float3 A, float3 B, float3 Point) {
 	return A + AB * saturate(t); // saturate(t) can be written as: min((max(t, 0), 1)
 }
 
-bool Collisions::isIntersecting(const Capsule& caps, const Vector3f triangle[]) {
+std::optional<Collision> Collisions::isIntersecting(const Capsule& caps, const Vector3f triangle[]) {
 	float3 tip = caps.tip;
 	float3 base = caps.base;
 	float radius = caps.radius;
@@ -108,8 +108,5 @@ bool Collisions::isIntersecting(const Capsule& caps, const Vector3f triangle[]) 
 
 	float3 center = ClosestPointOnLineSegment(A, B, reference_point);
 
-	if (Collisions::triangleIntersectsSphere(triangle, center, radius)) {
-		return true;
-	}
-	return false;
+	return Collisions::triangleIntersectsSphere(triangle, center, radius);
 }
