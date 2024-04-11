@@ -2,6 +2,7 @@
 class Config {
 public:
 	int renderDistance;
+	bool vsync;
 
 	Config();
 };

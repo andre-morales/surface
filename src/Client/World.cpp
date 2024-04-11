@@ -23,8 +23,8 @@ void World::doLoadChunks() {
 		removeChunk(ch);
 	}
 
-	for (int x = -2; x <= 2; x++) {
-		for (int z = -2; z <= 2; z++) {
+	for (int x = -rd; x <= rd; x++) {
+		for (int z = -rd; z <= rd; z++) {
 			int cx = x + (int)(position.x / 16);
 			int cz = z + (int)(position.z / 16);
 			float dist = std::hypot(cx * 16 - position.x, cz * 16 - position.z);

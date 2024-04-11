@@ -68,6 +68,7 @@
     <ClCompile Include="src\Physics\TriangleAABBCollision.cpp" />
     <ClCompile Include="src\Physics\TriangleCapsuleCollision.cpp" />
     <ClCompile Include="src\Physics\TriangleSphereCollision.cpp" />
+    <ClCompile Include="src\Client\PlayerPhysics.cpp" />
     <ClCompile Include="src\StaticVector.cpp" />
     <ClCompile Include="src\TypeInfo.cpp" />
   </ItemGroup>

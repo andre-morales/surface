@@ -30,8 +30,8 @@ namespace Glow {
 	void Window::build() {
 		print("Building...");
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-		glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, false);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+		//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, false);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 		GLFWwindow* win = glfwCreateWindow(width, height, "Window", nullptr, nullptr);
 		
@@ -269,10 +269,10 @@ namespace Glow {
 	}
 }
 
-
 void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum severity, GLsizei length, const char* message, const void* userParam) {
 	// ignore non-significant error/warning codes
-	if (id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
+	if (id == 13) return; // Ignore deprecated GL_LIGHTING message
+	if (id == 7) return; // Ignore deprecated GL_LINE_WIDTH
 
 	std::cout << "---------------" << std::endl;
 	std::cout << "Debug message (" << id << "): " << message << std::endl;

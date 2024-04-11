@@ -110,7 +110,7 @@ void Client::createWindow() {
 	Glow::Window& win = *window;
 
 	win.build();
-	win.setVSync(true);
+	win.setVSync(config->vsync);
 
 	win.addCloseRequestListener([&]() {
 		print("Close request received.");
