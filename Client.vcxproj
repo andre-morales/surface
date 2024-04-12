@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Physics\Body.cpp" />
     <ClCompile Include="src\Physics\Physics.cpp" />
+    <ClCompile Include="src\Client\PlayerBulletPhysics.cpp" />
     <ClCompile Include="src\Test\BulletExample.cpp" />
     <ClCompile Include="src\Client\Config.cpp" />
     <ClCompile Include="ext\TinyXML2\tinyxml2.cpp" />
@@ -65,12 +66,12 @@
     <ClCompile Include="src\Math\Maths.cpp" />
     <ClCompile Include="src\Math\noise.cpp" />
     <ClCompile Include="src\Math\prng.cpp" />
-    <ClCompile Include="src\Physics\Capsule.cpp" />
-    <ClCompile Include="src\Physics\Collision.cpp" />
-    <ClCompile Include="src\Physics\Collisions.cpp" />
-    <ClCompile Include="src\Physics\TriangleAABBCollision.cpp" />
-    <ClCompile Include="src\Physics\TriangleCapsuleCollision.cpp" />
-    <ClCompile Include="src\Physics\TriangleSphereCollision.cpp" />
+    <ClCompile Include="src\Physics\Own\Capsule.cpp" />
+    <ClCompile Include="src\Physics\Own\Collision.cpp" />
+    <ClCompile Include="src\Physics\Own\Collisions.cpp" />
+    <ClCompile Include="src\Physics\Own\TriangleAABBCollision.cpp" />
+    <ClCompile Include="src\Physics\Own\TriangleCapsuleCollision.cpp" />
+    <ClCompile Include="src\Physics\Own\TriangleSphereCollision.cpp" />
     <ClCompile Include="src\Client\PlayerPhysics.cpp" />
     <ClCompile Include="src\Base\StaticVector.cpp" />
     <ClCompile Include="src\Base\TypeInfo.cpp" />
@@ -137,13 +138,13 @@
     <ClInclude Include="src\Math\Vec3.h" />
     <ClInclude Include="src\Math\Vec4.h" />
     <ClInclude Include="src\Math\Vecs.h" />
-    <ClInclude Include="src\Physics\AABB.h" />
-    <ClInclude Include="src\Physics\Capsule.h" />
-    <ClInclude Include="src\Physics\Collision.h" />
-    <ClInclude Include="src\Physics\Collisions.h" />
-    <ClInclude Include="src\Physics\Plane.h" />
-    <ClInclude Include="src\Physics\Ray.h" />
-    <ClInclude Include="src\Physics\Sphere.h" />
+    <ClInclude Include="src\Physics\Own\AABB.h" />
+    <ClInclude Include="src\Physics\Own\Capsule.h" />
+    <ClInclude Include="src\Physics\Own\Collision.h" />
+    <ClInclude Include="src\Physics\Own\Collisions.h" />
+    <ClInclude Include="src\Physics\Own\Plane.h" />
+    <ClInclude Include="src\Physics\Own\Ray.h" />
+    <ClInclude Include="src\Physics\Own\Sphere.h" />
     <ClInclude Include="src\Base\Pointers.h" />
     <ClInclude Include="src\Base\Reflections.h" />
     <ClInclude Include="src\Base\StaticVector.h" />

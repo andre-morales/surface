@@ -15,7 +15,7 @@ public:
 	~Session();
 
 	void start();
-	void setupEvents();
+	void setupListeners();
 	void update();
 
 	void doChunkGeneration();

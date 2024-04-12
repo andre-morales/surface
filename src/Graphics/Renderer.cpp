@@ -12,7 +12,7 @@
 
 #include "Geometry.h"
 #include "Client/Chunk.h"
-#include "Physics/Collisions.h"
+#include "Physics/Own/Collisions.h"
 #include "Client/World.h"
 #include "Client/Player.h"
 #include "Loggy.h"

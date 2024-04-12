@@ -3,8 +3,8 @@
 #include "Glow/Window.h"
 #include "Client/Chunk.h"
 #include "Client/Session.h"
-#include "Physics/Ray.h"
-#include "Physics/Collisions.h"
+#include "Physics/Own/Ray.h"
+#include "Physics/Own/Collisions.h"
 #include "Math/Maths.h"
 #include "Client/World.h"
 

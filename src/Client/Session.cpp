@@ -8,11 +8,12 @@
 #include "Glow/Inputs.h"
 #include "Glass/GUI.h"
 #include "Glass/Elements/Text.h"
-#include "Physics\Collisions.h"
-#include "Physics\Ray.h"
+#include "Physics/Own/Collisions.h"
+#include "Physics/Own/Ray.h"
 #include "Math\Maths.h"
 #include "Loggy.h"
 #include "Types.h"
+#include "Physics/Physics.h"
 #include <format>
 
 static Loggy::Logger print{ "Session" };
@@ -49,12 +50,14 @@ void Session::start() {
 	player = mkUnique<Player>(*this);
 	world = mkUnique<World>();
 
-	setupEvents();
+	setupListeners();
+
+	//Physics::initWorld();
 
 	print("Ready.");
 }
 
-void Session::setupEvents() {
+void Session::setupListeners() {
 	Client& client = Client::get();
 	Window& window = *client.getWindow();
 	Player& player = getPlayer();
@@ -86,7 +89,7 @@ void Session::setupEvents() {
 			gui.getElementById("pause-screen")->setVisible(menuVisible);
 			window.setMouseVisible(menuVisible);
 		}
-	});
+		});
 
 	float lastMX = -1, lastMY = -1;
 	winMouseMoveListener = window.addMouseMoveListener([&, lastMX, lastMY](float mx, float my) mutable {
@@ -104,7 +107,7 @@ void Session::setupEvents() {
 
 		lastMX = mx;
 		lastMY = my;
-	});
+		});
 
 	winMouseButtonListener = window.addMouseListener([&](MouseButton btn, InputAction action, int modifiers) {
 		if (action == InputAction::PRESS) {
@@ -121,7 +124,8 @@ void Session::setupEvents() {
 
 				world->setBlockAt(0, x, y, z);
 
-			} else {
+			}
+			else {
 				auto hitOpt = cam.getLookingEmptyBlockPos();
 				if (!hitOpt) return;
 
@@ -131,7 +135,7 @@ void Session::setupEvents() {
 				world->setBlockAt(selectedBlock, x, y, z);
 			}
 		}
-	});
+		});
 }
 
 void Session::update() {
