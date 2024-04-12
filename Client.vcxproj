@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Physics\Body.cpp" />
+    <ClCompile Include="src\Physics\Physics.cpp" />
+    <ClCompile Include="src\Test\BulletExample.cpp" />
     <ClCompile Include="src\Client\Config.cpp" />
     <ClCompile Include="ext\TinyXML2\tinyxml2.cpp" />
     <ClCompile Include="src\Client\Chunk.cpp" />
@@ -34,8 +37,8 @@
     <ClCompile Include="src\Client\Main.cpp" />
     <ClCompile Include="src\Graphics\MeshGeneratorTables.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
-    <ClCompile Include="src\Exception.cpp" />
-    <ClCompile Include="src\Geometry.cpp" />
+    <ClCompile Include="src\Base\Exception.cpp" />
+    <ClCompile Include="src\Base\Geometry.cpp" />
     <ClCompile Include="src\Glass\Elements\Text.cpp" />
     <ClCompile Include="src\Glass\Events\Event.cpp" />
     <ClCompile Include="src\Glass\Font.cpp" />
@@ -58,7 +61,7 @@
     <ClCompile Include="src\Glow\Window.cpp" />
     <ClCompile Include="src\Glass\Elements\Element.cpp" />
     <ClCompile Include="src\Glass\GUI.cpp" />
-    <ClCompile Include="src\Loggy.cpp" />
+    <ClCompile Include="src\Base\Loggy.cpp" />
     <ClCompile Include="src\Math\Maths.cpp" />
     <ClCompile Include="src\Math\noise.cpp" />
     <ClCompile Include="src\Math\prng.cpp" />
@@ -69,10 +72,13 @@
     <ClCompile Include="src\Physics\TriangleCapsuleCollision.cpp" />
     <ClCompile Include="src\Physics\TriangleSphereCollision.cpp" />
     <ClCompile Include="src\Client\PlayerPhysics.cpp" />
-    <ClCompile Include="src\StaticVector.cpp" />
-    <ClCompile Include="src\TypeInfo.cpp" />
+    <ClCompile Include="src\Base\StaticVector.cpp" />
+    <ClCompile Include="src\Base\TypeInfo.cpp" />
+    <ClCompile Include="src\Test\BulletTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Physics\Body.h" />
+    <ClInclude Include="src\Physics\Physics.h" />
     <ClInclude Include="src\Client\Config.h" />
     <ClInclude Include="ext\Lodepng\lodepng.h" />
     <ClInclude Include="src\Client\Block.h" />
@@ -81,11 +87,11 @@
     <ClInclude Include="src\Client\World.h" />
     <ClInclude Include="src\Graphics\MeshGenerator.h" />
     <ClInclude Include="src\Client\Session.h" />
-    <ClInclude Include="src\Debug.h" />
+    <ClInclude Include="src\Base\Debug.h" />
     <ClInclude Include="src\Glass\Layouts\SplitLayout.h" />
     <ClInclude Include="src\Glow\Shader.h" />
     <ClInclude Include="src\Graphics\Camera.h" />
-    <ClInclude Include="src\Geometry.h" />
+    <ClInclude Include="src\Base\Geometry.h" />
     <ClInclude Include="src\Glass\Concepts.h" />
     <ClInclude Include="src\Glass\Constants.h" />
     <ClInclude Include="src\Glass\Elements\Text.h" />
@@ -111,7 +117,7 @@
     <ClInclude Include="src\Client\Client.h" />
     <ClInclude Include="src\Graphics\MeshGeneratorTables.h" />
     <ClInclude Include="src\Graphics\Renderer.h" />
-    <ClInclude Include="src\Exception.h" />
+    <ClInclude Include="src\Base\Exception.h" />
     <ClInclude Include="src\Glass\TextMetrics.h" />
     <ClInclude Include="src\Glow\Glow.h" />
     <ClInclude Include="src\Glow\GLContext.h" />
@@ -121,7 +127,7 @@
     <ClInclude Include="src\Glow\Window.h" />
     <ClInclude Include="src\Glass\Elements\Element.h" />
     <ClInclude Include="src\Glass\GUI.h" />
-    <ClInclude Include="src\Loggy.h" />
+    <ClInclude Include="src\Base\Loggy.h" />
     <ClInclude Include="src\Math\Maths.h" />
     <ClInclude Include="src\Math\Matrices.h" />
     <ClInclude Include="src\Math\NamedTypes.h" />
@@ -138,13 +144,13 @@
     <ClInclude Include="src\Physics\Plane.h" />
     <ClInclude Include="src\Physics\Ray.h" />
     <ClInclude Include="src\Physics\Sphere.h" />
-    <ClInclude Include="src\Pointers.h" />
-    <ClInclude Include="src\Reflections.h" />
-    <ClInclude Include="src\StaticVector.h" />
-    <ClInclude Include="src\Strings.h" />
-    <ClInclude Include="src\Times.h" />
-    <ClInclude Include="src\TypeInfo.h" />
-    <ClInclude Include="src\Types.h" />
+    <ClInclude Include="src\Base\Pointers.h" />
+    <ClInclude Include="src\Base\Reflections.h" />
+    <ClInclude Include="src\Base\StaticVector.h" />
+    <ClInclude Include="src\Base\Strings.h" />
+    <ClInclude Include="src\Base\Times.h" />
+    <ClInclude Include="src\Base\TypeInfo.h" />
+    <ClInclude Include="src\Base\Types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -247,7 +253,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;LODEPNG_NO_COMPILE_ENCODER;LODEPNG_NO_COMPILE_CPP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>src;ext</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;ext;src/base</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4305</DisableSpecificWarnings>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <AdditionalOptions>/Zc:externConstexpr %(AdditionalOptions)</AdditionalOptions>
@@ -269,7 +275,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;LODEPNG_NO_COMPILE_CPP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>src;ext</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;ext;src/base</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4305</DisableSpecificWarnings>
       <AdditionalOptions>/Zc:externConstexpr %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
