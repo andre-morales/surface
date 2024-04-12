@@ -47,6 +47,7 @@ int main() {
 	print("Goodbye!");
 
 	//pause();
+	return 0;
 }
 
 void pause() {
