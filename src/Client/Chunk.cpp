@@ -17,6 +17,10 @@ void Chunk::allocate() {
 void Chunk::generate() {
 	Noise terrainGen{ 0 };
 
+	srand(0);
+
+	
+
 	for (int x = 0; x < 16; x++) {
 		for (int z = 0; z < 16; z++) {
 			int bx = x + (cx * 24);
@@ -25,16 +29,26 @@ void Chunk::generate() {
 			double np = 32;
 			double sc = 0.039196174894183;
 			double pn = terrainGen.get(np + bx * sc, np + bz * sc, 0);
+			
+			
 			double ns = (0.7 + pn) * 8;
-
 			uint16 n = Math::clamp(ns, 0.0, 15.0);
 
 			(*blocks)[x][n][z] = 1;
 			for (int y = 1; y < n; y++) {
-				(*blocks)[x][y][z] = { 1 };
+				(*blocks)[x][y][z] = { 3 };
 			}
 
-			(*blocks)[x][0][z] = { 3 };
+			double np_ = 128;
+			double sc_ = 39.196174894183;
+			double pn_ = terrainGen.get(np + bx * sc, np + bz * sc, 0);
+			if (rand() % 128 == 0) {
+				for (int y = n + 1; y < 15; y++) {
+					(*blocks)[x][y][z] = { 3 };
+				}
+			}
+
+			(*blocks)[x][0][z] = { 4 };
 		}
 	}
 

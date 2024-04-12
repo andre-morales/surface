@@ -5,6 +5,7 @@
 #include "Physics/Own/Collisions.h"
 #include "Physics/Own/AABB.h"
 #include "Physics/Own/Capsule.h"
+#include "Physics/Physics.h"
 #include "Client.h"
 #include "Graphics/Camera.h"
 #include "Graphics/Renderer.h"
@@ -26,6 +27,14 @@ Player::Player(Session& s) : session(s) {
 
 Player::~Player() {}
 
+void Player::initWorldPhysics() {
+	Physics::initBulletWorldPhysics();
+}
+
+void Player::doWorldPhysics() {
+	this->position = Physics::getPlayerPosition();
+}
+
 void doPlayerPhysics(float timeDelta, Vector3f& position, Vector3f& velocity, Capsule& collider, Session& session);
 void Player::doPhysics(float timeDelta) {
 	auto& chunks = session.getWorld().chunks;
@@ -35,7 +44,9 @@ void Player::doPhysics(float timeDelta) {
 	auto originalFuture = position + velocity * timeDelta;
 	auto originalVelocity = velocity;
 
-	doPlayerPhysics(timeDelta, position, velocity, *capsuleCollider, session);
+	doWorldPhysics();
+
+	//doPlayerPhysics(timeDelta, position, velocity, *capsuleCollider, session);
 
 	// If we are ignoring physics, do not alter velocity or position according to collisions
 	if (!session.noClipping) {

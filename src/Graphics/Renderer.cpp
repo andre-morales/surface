@@ -16,6 +16,7 @@
 #include "Client/World.h"
 #include "Client/Player.h"
 #include "Loggy.h"
+#include "Physics/Physics.h"
 
 #define RADS (3.14159265359/180.0)
 
@@ -145,7 +146,6 @@ void Renderer::renderSession() {
 	}
 
 	glLoadMatrixf(camera.modelViewMat.mat);
-
 	{
 		//float pos[] = { 1, 1, 0.2, 0 };
 		//glLightfv(GL_LIGHT0, GL_POSITION, pos);
@@ -188,6 +188,9 @@ void Renderer::renderSession() {
 		glPopMatrix();
 	}
 	
+	Physics::drawDebug();
+
+	// Show wireframe view of the block that would be placed/broken and look-at position
 	{
 		gl.enableVertsArray();
 		auto camDirection = camera.getLookingDirection();
@@ -288,4 +291,17 @@ void Renderer::drawDebugOutlines() {
 		gl.enableDepthTesting();
 		gl.disableVertsArray();
 	}
+}
+
+void Renderer::drawLine(const Vector3f& from, const Vector3f& to, const Vector3f& color) {
+	glLineWidth(2);
+	glColor3fv(color.vec);
+	glBegin(GL_LINES);
+	glVertex3fv(from.vec);
+	glVertex3fv(to.vec);
+	glEnd();
+}
+
+Renderer& Renderer::get() {
+	return *Client::get().getRenderer();
 }

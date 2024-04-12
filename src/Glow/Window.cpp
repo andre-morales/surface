@@ -273,9 +273,10 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum 
 	// ignore non-significant error/warning codes
 	if (id == 13) return; // Ignore deprecated GL_LIGHTING message
 	if (id == 7) return; // Ignore deprecated GL_LINE_WIDTH
-
-	std::cout << "---------------" << std::endl;
-	std::cout << "Debug message (" << id << "): " << message << std::endl;
+	if (id == 131204) return; // Ignore "The texture object (0) bound to texture image unit 0 does not have a defined base level and cannot be used for texture mapping"
+	
+	std::cout << "-------# OPENGL DEBUG #--------" << std::endl;
+	std::cout << "ID: (" << id << "): " << message << std::endl;
 
 	switch (source) {
 	case GL_DEBUG_SOURCE_API:             std::cout << "Source: API"; break;
@@ -305,7 +306,6 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, unsigned int id, GLenum 
 	case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: notification"; break;
 	} std::cout << std::endl;
 	std::cout << std::endl;
-
 
 	Debug::pause();
 }

@@ -17,8 +17,9 @@ public:
 	void resize(int width, int height);
 	void renderSession();
 
+	void drawLine(const Vector3f& from, const Vector3f& to, const Vector3f& color);
 	void _recompileShader();
-
+	static Renderer& get();
 private:
 	void drawDebugOutlines();
 };

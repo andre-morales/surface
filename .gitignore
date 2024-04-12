@@ -3,3 +3,4 @@
 .vs/
 libs/stg/
 build/
+vcpkg_installed/

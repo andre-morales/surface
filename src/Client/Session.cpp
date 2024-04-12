@@ -52,7 +52,8 @@ void Session::start() {
 
 	setupListeners();
 
-	//Physics::initWorld();
+	Physics::initWorld();
+	player->initWorldPhysics();
 
 	print("Ready.");
 }
@@ -189,7 +190,9 @@ void Session::doMovement() {
 
 	player.velocity = player.velocity * 0.985f + mVel * 0.025f;
 
+	Physics::simulate(timeDelta);
 	player.doPhysics(timeDelta);
+	//player.doWorldPhysics();
 
 	cam.position = player.position;
 	cam.position.y += 1.65;
@@ -200,15 +203,18 @@ void Session::doMovement() {
 void Session::doDebugText() {
 	Client& client = Client::get();
 	Camera& cam = client.getRenderer()->camera;
+	Player& ply = client.getSession()->getPlayer();
 	Glass::GUI& gui = *client.getGUI();
 
 	std::string debugText = std::format(R"({}
 FPS: {}
-X: {:.2f} Y: {:.2f} Z: {:.2f}
+Camr X: {:.2f} Y: {:.2f} Z: {:.2f}
+Plyr X: {:.2f} Y: {:.2f} Z: {:.2f}
 RX: {:.2f}, RY: {:.2f})",
 Client::getBuildText(),
 client.getFPS(),
 cam.position.x, cam.position.y, cam.position.z,
+ply.position.x, ply.position.y, ply.position.z,
 cam.rotation.x, cam.rotation.y);
 
 	((Text*)gui.getElementById("debug-text"))->text = debugText;

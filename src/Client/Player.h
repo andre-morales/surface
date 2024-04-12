@@ -19,6 +19,9 @@ public:
 	Player(Session&);
 	~Player();
 
+	void initWorldPhysics();
+	void doWorldPhysics();
+
 	void doPhysics(float timeDelta);
 
 	std::array<Vector3f, 24> getBoxColliderLines();
