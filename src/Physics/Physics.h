@@ -1,15 +1,17 @@
 #pragma once
 #include "Math/Vec3.h"
 class btDiscreteDynamicsWorld;
+class Chunk;
 
 namespace Physics {
 	void initWorld();
-	void initBulletWorldPhysics();
-
 	void simulate(float timeDelta);
-	Vector3f getPlayerPosition();
-	
 	void drawDebug();
+
+	void initBulletWorldPhysics();
+	Vector3f getPlayerPosition();
+	void setPlayerMotion(Vector3f v);
+	void createChunkCollider(Chunk* c);
 
 	extern btDiscreteDynamicsWorld* _world;
 };

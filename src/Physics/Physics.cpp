@@ -55,8 +55,6 @@ namespace Physics {
 	}
 
 	void simulate(float timeDelta) {
-		//printf("Simulated.\n");
-		
 		_world->stepSimulation(timeDelta);
 	}
 

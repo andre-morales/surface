@@ -20,7 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base\Debug.cpp" />
-    <ClCompile Include="src\Physics\Body.cpp" />
+    <ClCompile Include="src\Physics\RigidBody.cpp" />
     <ClCompile Include="src\Physics\Physics.cpp" />
     <ClCompile Include="src\Client\PlayerBulletPhysics.cpp" />
     <ClCompile Include="src\Test\BulletExample.cpp" />
@@ -79,7 +79,7 @@
     <ClCompile Include="src\Test\BulletTest.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Physics\Body.h" />
+    <ClInclude Include="src\Physics\RigidBody.h" />
     <ClInclude Include="src\Physics\Physics.h" />
     <ClInclude Include="src\Client\Config.h" />
     <ClInclude Include="ext\Lodepng\lodepng.h" />

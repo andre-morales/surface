@@ -31,7 +31,7 @@ private:
 	unique<World> world;
 	unique<Player> player;
 	bool menuVisible = false;
-	bool noClipping = true;
+	bool noClipping = false;
 
 	Vector3f lookingWorldPos;
 	std::array<Vector3f, 3> lookingWorldTriangle;

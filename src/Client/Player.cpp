@@ -32,7 +32,10 @@ void Player::initWorldPhysics() {
 }
 
 void Player::doWorldPhysics() {
-	this->position = Physics::getPlayerPosition();
+	position = Physics::getPlayerPosition() - Vector3f{0, 2, 0};
+	if (!session.noClipping) {
+		Physics::setPlayerMotion(motion * 0.05);
+	}
 }
 
 void doPlayerPhysics(float timeDelta, Vector3f& position, Vector3f& velocity, Capsule& collider, Session& session);
@@ -49,7 +52,7 @@ void Player::doPhysics(float timeDelta) {
 	//doPlayerPhysics(timeDelta, position, velocity, *capsuleCollider, session);
 
 	// If we are ignoring physics, do not alter velocity or position according to collisions
-	if (!session.noClipping) {
+	if (session.noClipping) {
 		velocity = originalVelocity;
 		position = originalFuture;
 		return;

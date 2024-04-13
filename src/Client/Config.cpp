@@ -1,6 +1,6 @@
 #include "Config.h"
 
 Config::Config() {
-	vsync = false;
+	vsync = true;
 	renderDistance = 7;
 }

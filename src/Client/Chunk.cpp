@@ -6,6 +6,7 @@
 #include "Math/noise.h"
 #include "Graphics/MeshGenerator.h"
 #include "Session.h"
+#include "Physics/Physics.h"
 #include "World.h"
 
 Chunk::Chunk(const Session& s) : session(s) {}
@@ -84,6 +85,8 @@ void Chunk::batch() {
 
 	MeshGenerator::generate(*this);
 	batched = true;
+
+	Physics::createChunkCollider(this);
 
 	//printf("-- V: %lli, U: %lli, N: %lli, C: %lli\n", vertices.size(), uvs.size(), normals.size(), colors.size());
 	//printf("@@ V: %lli, U: %lli, N: %lli, C: %lli\n", vertices.capacity(), uvs.capacity(), normals.capacity(), colors.capacity());

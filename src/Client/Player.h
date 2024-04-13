@@ -15,6 +15,7 @@ public:
 	Vector3f position;
 	Vector2f rotation;
 	Vector3f velocity;
+	Vector3f motion;
 
 	Player(Session&);
 	~Player();

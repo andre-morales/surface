@@ -188,6 +188,7 @@ void Session::doMovement() {
 		mVel.y -= movementSpeed;
 	}
 
+	player.motion = mVel;
 	player.velocity = player.velocity * 0.985f + mVel * 0.025f;
 
 	Physics::simulate(timeDelta);

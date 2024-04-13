@@ -188,8 +188,6 @@ void Renderer::renderSession() {
 		glPopMatrix();
 	}
 	
-	Physics::drawDebug();
-
 	// Show wireframe view of the block that would be placed/broken and look-at position
 	{
 		gl.enableVertsArray();
@@ -224,6 +222,7 @@ void Renderer::renderSession() {
 	}
 
 	if (debugOutlines) {
+		Physics::drawDebug();
 		drawDebugOutlines();
 	}
 
