@@ -1,7 +1,10 @@
 #include "Physics/Engine.h"
 #include "Client/Chunk.h"
-#include <bullet/btBulletDynamicsCommon.h>
 #include "Physics/RigidBody.h"
+#include "Physics/Collider.h"
+#include "Physics/MeshCollider.h"
+#include <bullet/btBulletDynamicsCommon.h>
+#include <unordered_map>
 
 btVector3 convertB(const Vector3f v) {
 	return { v.x, v.y, v.z };
@@ -12,8 +15,14 @@ Vector3f convertV(const btVector3 v) {
 }
 
 namespace Physics {
+	class BatchedChunk {
+	public:
+		unique<RigidBody> rigidBody;
+	};
+
 	static btRigidBody* playerBody;
 	static btRigidBody* ground;
+	static std::unordered_map<Chunk*, BatchedChunk> chunks;
 
 	Vector3f getPlayerPosition() {
 		auto vec = playerBody->getWorldTransform().getOrigin();
@@ -24,23 +33,42 @@ namespace Physics {
 		playerBody->applyCentralImpulse(convertB(v));
 	}
 
+	void destroyChunkCollider(Chunk* c) {
+		chunks.erase(c);
+	}
+
 	void createChunkCollider(Chunk* c) {
-		auto mesh = new btTriangleMesh();
+		BatchedChunk* chp = nullptr;
+		auto it = chunks.find(c);
+		bool newChunk;
+		if (it != chunks.end()) {
+			chp = &it->second;
+			newChunk = false;
+		} else {
+			auto it_ = chunks.emplace(c, BatchedChunk{});
+			chp = &it_.first->second;
+			newChunk = true;
+		}
+
+		BatchedChunk& ch = *chp;
+		auto meshP = mkUnique<btTriangleMesh>();
+		auto& mesh = *meshP;
+
 		for (int i = 0; i < c->vertices.size(); i += 3) {
-			mesh->addTriangle(convertB(c->vertices[i]), convertB(c->vertices[i + 1]), convertB(c->vertices[i + 2]));
+			mesh.addTriangle(convertB(c->vertices[i]), convertB(c->vertices[i + 1]), convertB(c->vertices[i + 2]));
 		}
 		
-		auto collisionShape = new btBvhTriangleMeshShape(mesh, true);
+		auto collider = mkUnique<MeshCollider>(std::move(meshP));
 
-		btTransform transform{};
-		transform.setIdentity();
-		transform.setOrigin({ c->cx * 16.0f, 0, c->cz * 16.0f });
-
-		auto motionState = new btDefaultMotionState(transform);
-		btRigidBody::btRigidBodyConstructionInfo bodyInfo{ 0, motionState, collisionShape };
-
-		auto chunkBody = new btRigidBody(bodyInfo);
-		_world->addRigidBody(chunkBody);
+		if (newChunk) {
+			ch.rigidBody = mkUnique<RigidBody>(0);
+			ch.rigidBody->setPosition({ c->cx * 16.0f, 0, c->cz * 16.0f });
+		}
+		
+		ch.rigidBody->setCollider(std::move(collider));
+		if (newChunk) {
+			ch.rigidBody->instantiate();
+		}
 	}
 
 	void initBulletWorldPhysics() {
@@ -69,13 +97,16 @@ namespace Physics {
 
 			btTransform transform{};
 			transform.setIdentity();
-			transform.setOrigin({ 10, 30, 0 });
+			transform.setOrigin({ 10, 20, 0 });
 
 			auto rb = new RigidBody(1);
-			playerBody = rb->body;
+			playerBody = &rb->getBtBody();
 			playerBody->setActivationState(DISABLE_DEACTIVATION);
-			auto capsule = new btCapsuleShape(1, 2);
-			rb->body->setCollisionShape(capsule);
+			
+			auto capsule = mkUnique<btCapsuleShape>(0.4, 1.65 -0.4*2);
+			auto collider = mkUnique<Collider>(std::move(capsule));
+
+			rb->setCollider(std::move(collider));
 			rb->setPosition({ 10, 30, 0 });
 			rb->instantiate();
 		}

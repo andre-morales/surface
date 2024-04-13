@@ -197,7 +197,7 @@ void Session::doMovement() {
 	//player.doWorldPhysics();
 
 	cam.position = player.position;
-	cam.position.y += 1.65;
+	cam.position.y += 1.65 + 0.5 * 2;
 	cam.position.y += 0;
 	cam.rotation = player.rotation;
 }

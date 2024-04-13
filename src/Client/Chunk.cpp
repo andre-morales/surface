@@ -11,6 +11,10 @@
 
 Chunk::Chunk(const Session& s) : session(s) {}
 
+Chunk::~Chunk() {
+	Physics::destroyChunkCollider(this);
+}
+
 void Chunk::allocate() {
 	blocks = (BlockData*) new uint8_t[16 * 16 * 16]();
 }
@@ -19,8 +23,6 @@ void Chunk::generate() {
 	Noise terrainGen{ 0 };
 
 	srand(0);
-
-	
 
 	for (int x = 0; x < 16; x++) {
 		for (int z = 0; z < 16; z++) {

@@ -8,8 +8,7 @@
 void World::doLoadChunks() {
 	Client& client = Client::get();
 	Session& session = *client.getSession();
-	// client.getConfig().renderDistance
-	int rd = 2;
+	int rd = client.getConfig().renderDistance;
 	auto& position = session.getPlayer().position;
 
 	std::vector<Chunk*> unloads;

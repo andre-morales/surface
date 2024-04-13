@@ -22,6 +22,7 @@ public:
 	std::vector<Vector3f> colors;
 
 	Chunk(const Session&);
+	~Chunk();
 
 	void allocate();
 	void generate();

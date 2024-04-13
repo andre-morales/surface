@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base\Debug.cpp" />
+    <ClCompile Include="src\Physics\Collider.cpp" />
+    <ClCompile Include="src\Physics\MeshCollider.cpp" />
     <ClCompile Include="src\Physics\RigidBody.cpp" />
     <ClCompile Include="src\Physics\Engine.cpp" />
     <ClCompile Include="src\Client\PlayerBulletPhysics.cpp" />
@@ -80,6 +82,8 @@
     <ClCompile Include="src\Physics\VisualDebugger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Physics\Collider.h" />
+    <ClInclude Include="src\Physics\MeshCollider.h" />
     <ClInclude Include="src\Physics\RigidBody.h" />
     <ClInclude Include="src\Physics\Engine.h" />
     <ClInclude Include="src\Client\Config.h" />
@@ -279,7 +283,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3dll.lib;glew32.lib;opengl32.lib;lodepngd.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>libs;C:\Apps\vcpkg\packages\bullet3_x64-windows\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>libs;</AdditionalLibraryDirectories>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
