@@ -6,6 +6,7 @@ class Chunk;
 namespace Physics {
 	void initWorld();
 	void simulate(float timeDelta);
+	void enableDebugging();
 	void drawDebug();
 
 	void initBulletWorldPhysics();

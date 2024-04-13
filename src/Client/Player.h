@@ -20,16 +20,9 @@ public:
 	Player(Session&);
 	~Player();
 
-	void initWorldPhysics();
-	void doWorldPhysics();
-
 	void doPhysics(float timeDelta);
 
-	std::array<Vector3f, 24> getBoxColliderLines();
-	std::vector<std::array<Vector3f, 3>> collidingTriangles;
-
 private:
-	unique<AABB> boxCollider;
 	unique<Capsule> capsuleCollider;
 };
 

@@ -13,7 +13,7 @@
 #include "Math\Maths.h"
 #include "Loggy.h"
 #include "Types.h"
-#include "Physics/Physics.h"
+#include "Physics/Engine.h"
 #include <format>
 
 static Loggy::Logger print{ "Session" };
@@ -53,7 +53,8 @@ void Session::start() {
 	setupListeners();
 
 	Physics::initWorld();
-	player->initWorldPhysics();
+	Physics::enableDebugging();
+	Physics::initBulletWorldPhysics();
 
 	print("Ready.");
 }

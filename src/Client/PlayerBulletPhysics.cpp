@@ -1,4 +1,4 @@
-#include "Physics/Physics.h"
+#include "Physics/Engine.h"
 #include "Client/Chunk.h"
 #include <bullet/btBulletDynamicsCommon.h>
 #include "Physics/RigidBody.h"
@@ -22,7 +22,6 @@ namespace Physics {
 
 	void setPlayerMotion(Vector3f v) {
 		playerBody->applyCentralImpulse(convertB(v));
-		//playerBody->setLinearVelocity(convertB(v));
 	}
 
 	void createChunkCollider(Chunk* c) {

@@ -105,7 +105,7 @@ void doPlayerPhysics(float timeDelta, Vector3f& position, Vector3f& velocity, Ca
 			if (!coll) continue;
 
 			// There was a collision, save the triangle on a list
-			session.getPlayer().collidingTriangles.emplace_back(Triangle{ triangle[0] + origin, triangle[1] + origin, triangle[2] + origin });
+			//session.getPlayer().collidingTriangles.emplace_back(Triangle{ triangle[0] + origin, triangle[1] + origin, triangle[2] + origin });
 
 			// Use the collision information to adjust current velocity and the future position
 			coll->correctMotion(future, velocity);

@@ -21,7 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\Base\Debug.cpp" />
     <ClCompile Include="src\Physics\RigidBody.cpp" />
-    <ClCompile Include="src\Physics\Physics.cpp" />
+    <ClCompile Include="src\Physics\Engine.cpp" />
     <ClCompile Include="src\Client\PlayerBulletPhysics.cpp" />
     <ClCompile Include="src\Test\BulletExample.cpp" />
     <ClCompile Include="src\Client\Config.cpp" />
@@ -77,10 +77,11 @@
     <ClCompile Include="src\Base\StaticVector.cpp" />
     <ClCompile Include="src\Base\TypeInfo.cpp" />
     <ClCompile Include="src\Test\BulletTest.cpp" />
+    <ClCompile Include="src\Physics\VisualDebugger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Physics\RigidBody.h" />
-    <ClInclude Include="src\Physics\Physics.h" />
+    <ClInclude Include="src\Physics\Engine.h" />
     <ClInclude Include="src\Client\Config.h" />
     <ClInclude Include="ext\Lodepng\lodepng.h" />
     <ClInclude Include="src\Client\Block.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="src\Base\Times.h" />
     <ClInclude Include="src\Base\TypeInfo.h" />
     <ClInclude Include="src\Base\Types.h" />
+    <ClInclude Include="src\Physics\VisualDebugger.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="vcpkg.json" />

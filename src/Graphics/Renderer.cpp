@@ -2,6 +2,9 @@
 #include "Client/Client.h"
 #include "Client/ClientImpl.h"
 #include "Client/Session.h"
+#include "Client/World.h"
+#include "Client/Player.h"
+#include "Client/Chunk.h"
 #include "Glass/GUI.h"
 #include "Glow/Window.h"
 #include "Glow/GLContext.h"
@@ -9,14 +12,10 @@
 #include "Glow/Inputs.h"
 #include "Glow/Shader.h"
 #include "GL/glew.h"
-
-#include "Geometry.h"
-#include "Client/Chunk.h"
 #include "Physics/Own/Collisions.h"
-#include "Client/World.h"
-#include "Client/Player.h"
+#include "Physics/Engine.h"
+#include "Geometry.h"
 #include "Loggy.h"
-#include "Physics/Physics.h"
 
 #define RADS (3.14159265359/180.0)
 
@@ -264,28 +263,6 @@ void Renderer::drawDebugOutlines() {
 			dbgRenderCubeAt(gl, camera.lookingTerrainPos, 0.05, false);
 		}
 
-		// Render last triangles collided
-		{
-			gl.disableTexture2d();
-
-			glColor4f(1, 0, 0, 1);
-			glLineWidth(3);
-
-			for (auto tris : player.collidingTriangles) {
-				tris[0] -= camDirection * 0.01;
-				tris[1] -= camDirection * 0.01;
-				tris[2] -= camDirection * 0.01;
-
-				glLineWidth(3);
-				glVertexPointer(3, GL_FLOAT, 0, tris.data());
-				glDrawArrays(GL_LINE_LOOP, 0, 3);
-			}
-
-			// Collider box
-			auto boxvv = player.getBoxColliderLines();
-			glVertexPointer(3, GL_FLOAT, 0, boxvv.data());
-			glDrawArrays(GL_LINES, 0, 24);
-		}
 		gl.enableTexture2d();
 		gl.enableDepthTesting();
 		gl.disableVertsArray();

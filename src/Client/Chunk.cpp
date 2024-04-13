@@ -6,7 +6,7 @@
 #include "Math/noise.h"
 #include "Graphics/MeshGenerator.h"
 #include "Session.h"
-#include "Physics/Physics.h"
+#include "Physics/Engine.h"
 #include "World.h"
 
 Chunk::Chunk(const Session& s) : session(s) {}
