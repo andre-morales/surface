@@ -1,5 +1,7 @@
 ## TO-DO:
-* 10: Investigate separating gravity and motion forces when dealing with collision for less stutter in movements
+* 6: Clean up new engine physics code and archive old code
 
-## Log
+## Recent Log
+13-04-24: Improved physics code
+12-04-24: Bullet physics is working
 10-04-24: Capsule colliders have proven way more precise than AABB colliders

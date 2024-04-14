@@ -5,8 +5,6 @@
 #include <vector>
 #include <array>
 
-class Capsule;
-class AABB;
 class Session;
 
 class Player {
@@ -23,6 +21,5 @@ public:
 	void doPhysics(float timeDelta);
 
 private:
-	unique<Capsule> capsuleCollider;
 };
 

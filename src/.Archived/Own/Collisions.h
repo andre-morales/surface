@@ -1,14 +1,20 @@
 #pragma once
+#include "Collision.h"
 #include <optional>
-#include "Math/Vec3.h"
 
 class Ray;
 class AABB;
 class Plane;
+class Capsule;
+class Sphere;
 
 class Collisions {
 public:
 	static std::optional<Vector3f> raycastTriangle(const Ray& ray, const Vector3f triangle[]);
+	static std::optional<Collision> doCapsuleTriangle(const Capsule& caps, const Vector3f triangle[]);
+	static std::optional<Collision> doSphereTriangle(const Sphere& sphere, const Vector3f triangle[]);
+	
+	static bool doAABBTriangle(const AABB& box, const Vector3f triangle[]);
 
 private:
 	static bool isPointInTriangle(const Vector3f& point, const Vector3f triangle[]);

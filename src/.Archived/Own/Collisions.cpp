@@ -1,4 +1,5 @@
 #include "Collisions.h"
+#include "Capsule.h"
 #include "Plane.h"
 #include "Ray.h"
 #include "Loggy.h"

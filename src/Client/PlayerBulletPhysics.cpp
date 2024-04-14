@@ -30,7 +30,15 @@ namespace Physics {
 	}
 
 	void setPlayerMotion(Vector3f v) {
-		playerBody->applyCentralImpulse(convertB(v));
+		playerBody->applyCentralForce(convertB(v * 3));
+		/*
+		auto vel = playerBody->getLinearVelocity();
+		if (vel.length() > 5) {
+			vel /= vel.length() / 5;
+			//playerBody->setLinearVelocity(vel);
+			
+			
+		}*/
 	}
 
 	void destroyChunkCollider(Chunk* c) {
@@ -63,6 +71,7 @@ namespace Physics {
 		if (newChunk) {
 			ch.rigidBody = mkUnique<RigidBody>(0);
 			ch.rigidBody->setPosition({ c->cx * 16.0f, 0, c->cz * 16.0f });
+			ch.rigidBody->getBtBody().setFriction(1.8);
 		}
 		
 		ch.rigidBody->setCollider(std::move(collider));
@@ -113,19 +122,19 @@ namespace Physics {
 
 		// Create ground shape
 		{
-			/*//auto collisionShape = new btBoxShape(btVector3{ 100.0f, 5.0f, 100.0f });
-			auto collisionShape = new btStaticPlaneShape({ 0, -10, 0 }, 1);
+			auto collisionShape = new btStaticPlaneShape({ 0, 1, 0 }, 1);
 
 			btTransform transform{};
 			transform.setIdentity();
-			transform.setOrigin({ 0, 15, 0 });
+			transform.setOrigin({ 0, -10, 0 });
 
 			auto motionState = new btDefaultMotionState(transform);
 			btRigidBody::btRigidBodyConstructionInfo bodyInfo{ 0, motionState, collisionShape};
 
 			ground = new btRigidBody(bodyInfo);
+			ground->setFriction(1);
 
-			_world->addRigidBody(ground);*/
+			_world->addRigidBody(ground);
 		}
 		
 	}

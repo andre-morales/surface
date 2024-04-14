@@ -12,7 +12,6 @@
 #include "Glow/Inputs.h"
 #include "Glow/Shader.h"
 #include "GL/glew.h"
-#include "Physics/Own/Collisions.h"
 #include "Physics/Engine.h"
 #include "Geometry.h"
 #include "Loggy.h"

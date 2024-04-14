@@ -8,8 +8,6 @@
 #include "Glow/Inputs.h"
 #include "Glass/GUI.h"
 #include "Glass/Elements/Text.h"
-#include "Physics/Own/Collisions.h"
-#include "Physics/Own/Ray.h"
 #include "Math\Maths.h"
 #include "Loggy.h"
 #include "Types.h"
