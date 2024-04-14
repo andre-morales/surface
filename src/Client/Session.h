@@ -18,6 +18,8 @@ public:
 	void setupListeners();
 	void update();
 
+	void setFreecam(bool enable);
+
 	void doChunkGeneration();
 	void doMovement();
 	void doDebugText();
@@ -31,7 +33,7 @@ private:
 	unique<World> world;
 	unique<Player> player;
 	bool menuVisible = false;
-	bool noClipping = false;
+	bool freecam = false;
 
 	Vector3f lookingWorldPos;
 	std::array<Vector3f, 3> lookingWorldTriangle;

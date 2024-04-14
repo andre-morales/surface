@@ -75,6 +75,20 @@ namespace Math {
 			return *this;
 		}
 
+		constexpr Vector3<T>& operator*=(float c) {
+			x *= c;
+			y *= c;
+			z *= c;
+			return *this;
+		}
+
+		constexpr Vector3<T>& operator/=(float c) {
+			x /= c;
+			y /= c;
+			z /= c;
+			return *this;
+		}
+
 		constexpr Vector3<T> operator+(T n) const {
 			return { x + n, y + n, z + n };
 		}

@@ -1,4 +1,5 @@
 #include "Client.h"
+#include "Version.h"
 #include "ClientImpl.h"
 #include "Session.h"
 #include "Config.h"
@@ -32,9 +33,6 @@
 using namespace Glow;
 using namespace Glass;
 
-static std::string VERSION_STRING = "0.0.3 b25";
-static std::string BUILD_STRING = VERSION_STRING + " Early Dev 1";
-static std::string BUILD_TEXT = "Surface v" + BUILD_STRING;
 static Loggy::Logger print{"Client"};
 static Client* client = nullptr;
 

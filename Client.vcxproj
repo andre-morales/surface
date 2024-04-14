@@ -37,7 +37,7 @@
     <ClCompile Include="src\Client\Session.cpp" />
     <ClCompile Include="src\Glass\Layouts\SplitLayout.cpp" />
     <ClCompile Include="src\Glow\Shader.cpp" />
-    <ClCompile Include="src\Graphics\Camera.cpp" />
+    <ClCompile Include="src\Client\Camera.cpp" />
     <ClCompile Include="src\Client\Main.cpp" />
     <ClCompile Include="src\Graphics\MeshGeneratorTables.cpp" />
     <ClCompile Include="src\Graphics\Renderer.cpp" />
@@ -74,6 +74,7 @@
     <ClCompile Include="src\Physics\VisualDebugger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Client\Version.h" />
     <ClInclude Include="src\Physics\Collider.h" />
     <ClInclude Include="src\Physics\MeshCollider.h" />
     <ClInclude Include="src\Physics\Own\Collisions.h" />
@@ -92,7 +93,7 @@
     <ClInclude Include="src\Base\Debug.h" />
     <ClInclude Include="src\Glass\Layouts\SplitLayout.h" />
     <ClInclude Include="src\Glow\Shader.h" />
-    <ClInclude Include="src\Graphics\Camera.h" />
+    <ClInclude Include="src\Client\Camera.h" />
     <ClInclude Include="src\Base\Geometry.h" />
     <ClInclude Include="src\Glass\Concepts.h" />
     <ClInclude Include="src\Glass\Constants.h" />
@@ -301,4 +302,11 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <!-- Manual configuration -->
+  <ItemDefinitionGroup>
+    <PreBuildEvent>
+      <Message>Executing pre-build script</Message>
+      <Command>cmd.exe /Q /C scripts\pre-build.bat</Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
 </Project>

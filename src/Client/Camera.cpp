@@ -8,11 +8,11 @@
 #include "Math/Maths.h"
 #include "Client/World.h"
 
-#define RADS (3.14159265359/180.0)
+constexpr double RADS = 3.14159265358979323846 / 180.0;
 
 Camera::Camera() {}
 
-void Camera::makeTransformMatrices() {
+void Camera::doTransformMatrices() {
 	projectionMat = Math::Mat4f::perspective(aspect, fov, near, far);
 	rotatedViewMat = Math::Mat4f::rotationY(rotation.y * RADS) * Math::Mat4f::rotationX(rotation.x * RADS);
 	modelViewMat = Math::Mat4f::translation(-position.x, -position.y, -position.z) * rotatedViewMat;
@@ -100,7 +100,7 @@ std::optional<Vector3i> Camera::getLookingBlockPos() {
 	auto pos = getLookingWorldPos();
 	if (!pos) return {};
 
-	auto hit = *pos;
+	Vector3f hit = *pos;
 	hit += Vector3f(0.5f);
 
 	Vector3i hitI{ (int)floor(hit.x), (int)floor(hit.y), (int)floor(hit.z) };
@@ -171,4 +171,9 @@ std::optional<Vector3i> Camera::getLookingEmptyBlockPos() {
 	}
 
 	return { {x, y, z} };
+}
+
+void Camera::doMotionUpdate(float delta) {
+	position += velocity * delta;
+	velocity *= 0.94;
 }

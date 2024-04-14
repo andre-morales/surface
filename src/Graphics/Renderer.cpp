@@ -5,6 +5,7 @@
 #include "Client/World.h"
 #include "Client/Player.h"
 #include "Client/Chunk.h"
+#include "Client/Camera.h"
 #include "Glass/GUI.h"
 #include "Glow/Window.h"
 #include "Glow/GLContext.h"
@@ -24,7 +25,11 @@ static Loggy::Logger print {"Render"};
 
 Shader* shader;
 
-Renderer::Renderer() {}
+Renderer::Renderer()
+	: cameraP(new Camera()), camera(*cameraP) {
+}
+
+Renderer::~Renderer() {}
 
 void Renderer::_recompileShader() {
 	shader->readShaderFile("res/shaders/world.sh");
@@ -122,7 +127,7 @@ void Renderer::renderSession() {
 	glMatrixMode(GL_PROJECTION);
 
 	camera.aspect = client.getWindow()->getAspect();
-	camera.makeTransformMatrices();
+	camera.doTransformMatrices();
 	glLoadIdentity();
 	glLoadMatrixf(camera.projectionMat.mat);
 
@@ -275,6 +280,10 @@ void Renderer::drawLine(const Vector3f& from, const Vector3f& to, const Vector3f
 	glVertex3fv(from.vec);
 	glVertex3fv(to.vec);
 	glEnd();
+}
+
+Camera& Renderer::getCamera() const {
+	return *cameraP;
 }
 
 Renderer& Renderer::get() {

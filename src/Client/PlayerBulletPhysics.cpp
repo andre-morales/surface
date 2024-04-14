@@ -30,7 +30,8 @@ namespace Physics {
 	}
 
 	void setPlayerMotion(Vector3f v) {
-		playerBody->applyCentralForce(convertB(v * 3));
+		//playerBody->applyCentralForce(convertB(v * 3));
+		playerBody->applyCentralImpulse(convertB(v * 0.03));
 		/*
 		auto vel = playerBody->getLinearVelocity();
 		if (vel.length() > 5) {
@@ -71,7 +72,7 @@ namespace Physics {
 		if (newChunk) {
 			ch.rigidBody = mkUnique<RigidBody>(0);
 			ch.rigidBody->setPosition({ c->cx * 16.0f, 0, c->cz * 16.0f });
-			ch.rigidBody->getBtBody().setFriction(1.8);
+			ch.rigidBody->getBtBody().setFriction(0.8);
 		}
 		
 		ch.rigidBody->setCollider(std::move(collider));

@@ -6,8 +6,9 @@
 
 class Camera {
 public:
-	Vector3f position = Vector3f(0, 0, 2);
-	Vector2f rotation = Vector2f(0, 0);
+	Vector3f position{};
+	Vector2f rotation{};
+	Vector3f velocity{};
 
 	Math::Mat4f projectionMat, rotatedViewMat, modelViewMat, fullTransformMat;
 
@@ -21,8 +22,15 @@ public:
 	std::array<Vector3f, 3> lookingTerrainTriangle;
 
 	Camera();
-	void makeTransformMatrices();
+
+	/* Update camera transform matrices with new position, rotation or frustum parameters */
+	void doTransformMatrices();
+
+	/* Perform a new raycast against the terrain and update looked at information */
 	void doCameraRaycast();
+
+	/* Perform camera velocity and position updates. Used to smooth freecaming movement */
+	void doMotionUpdate(float delta);
 
 	Vector3f getLookingDirection();
 	std::optional<Vector3f> getLookingWorldPos();
