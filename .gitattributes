@@ -1,0 +1,2 @@
+# Remove the headers in ext/ from our languages list.
+ext/** linguist-vendored
